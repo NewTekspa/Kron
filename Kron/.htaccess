@@ -1,0 +1,18 @@
+# Prevenir listado de directorios
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /kron/
+    
+    # Prevenir acceso directo a carpetas del sistema
+    RewriteRule ^(app|bootstrap|config|logs|Temp)(/.*)?$ - [F,L]
+    
+    # Si se accede a la raíz /kron o /kron/, redirigir a /kron/public/
+    RewriteRule ^$ public/ [L]
+    
+    # Si no es un archivo o directorio físico, redirigir a public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
+</IfModule>

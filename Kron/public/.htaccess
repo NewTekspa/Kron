@@ -1,0 +1,29 @@
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /kron/
+    # Redirigir todo a index.php excepto archivos/carpetas existentes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Permitir acceso a archivos estáticos
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot|php)$">
+    <IfModule !mod_authz_core.c>
+        Allow from all
+    </IfModule>
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+</FilesMatch>
+
+# Prevenir acceso directo a archivos sensibles
+<FilesMatch "^\.">
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>

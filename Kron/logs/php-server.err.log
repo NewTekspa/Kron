@@ -1,0 +1,382 @@
+[30-Jan-2026 21:40:26 UTC] PHP Fatal error:  A void method must not return a value in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 338
+[30-Jan-2026 21:49:34 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\edit.php on line 59
+[30-Jan-2026 21:49:50 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\edit.php on line 59
+[30-Jan-2026 21:50:11 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\edit.php on line 59
+[30-Jan-2026 21:50:31 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\edit.php on line 59
+[30-Jan-2026 21:51:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'newtekcl_db_newtek.kron_task_classifications' doesn't exist in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php:125
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php(125): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskManagementController.php(21): App\Models\TaskCategory::allWithCounts()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskManagementController->index()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php on line 125
+[30-Jan-2026 23:52:33 UTC] PHP Parse error:  syntax error, unexpected variable "$months", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskGestionController.php on line 13
+[30-Jan-2026 23:53:39 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskGestionController.php on line 51
+[30-Jan-2026 23:53:40 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskGestionController.php on line 51
+[30-Jan-2026 23:53:41 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskGestionController.php on line 51
+[30-Jan-2026 23:53:42 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskGestionController.php on line 51
+[30-Jan-2026 23:53:43 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskGestionController.php on line 51
+[30-Jan-2026 23:53:49 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskGestionController.php on line 51
+[31-Jan-2026 00:11:21 UTC] PHP Parse error:  syntax error, unexpected token "class", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 72
+[31-Jan-2026 00:11:52 UTC] PHP Parse error:  syntax error, unexpected variable "$user", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 65
+[31-Jan-2026 00:12:37 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting end of file in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 67
+[31-Jan-2026 00:13:42 UTC] PHP Parse error:  syntax error, unexpected token "**" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 63
+[31-Jan-2026 00:14:29 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 3
+[31-Jan-2026 13:26:51 UTC] PHP Deprecated:  App\Models\TaskIndicator::countCriticalNotFinished(): Implicitly marking parameter $userIds as nullable is deprecated, the explicit nullable type must be used instead in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskIndicator.php on line 9
+[31-Jan-2026 13:30:22 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HomeController.php on line 4
+[31-Jan-2026 13:30:25 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HomeController.php on line 4
+[31-Jan-2026 13:32:15 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HomeController.php on line 4
+[31-Jan-2026 13:32:16 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HomeController.php on line 4
+[31-Jan-2026 13:32:18 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HomeController.php on line 4
+[31-Jan-2026 13:34:58 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.team_id' in 'field list' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TeamTaskIndicator.php:19
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TeamTaskIndicator.php(19): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HomeController.php(55): App\Models\TeamTaskIndicator::countCriticalNotFinishedByTeam()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\HomeController->index()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TeamTaskIndicator.php on line 19
+[01-Feb-2026 21:49:37 UTC] PHP Warning:  Undefined variable $teams in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:37 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:42 UTC] PHP Warning:  Undefined variable $teams in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:42 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:44 UTC] PHP Warning:  Undefined variable $teams in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:44 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:45 UTC] PHP Warning:  Undefined variable $teams in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:45 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:47 UTC] PHP Warning:  Undefined variable $teams in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 21:49:47 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 153
+[01-Feb-2026 23:33:28 UTC] PHP Parse error:  syntax error, unexpected end of file in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 649
+[01-Feb-2026 23:33:31 UTC] PHP Parse error:  syntax error, unexpected end of file in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 649
+[01-Feb-2026 23:33:44 UTC] PHP Parse error:  syntax error, unexpected end of file in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\manage.php on line 628
+[03-Feb-2026 02:15:18 UTC] PHP Parse error:  syntax error, unexpected token "public" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 63
+[03-Feb-2026 02:18:02 UTC] PHP Parse error:  syntax error, unexpected token "public" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 63
+[03-Feb-2026 02:18:52 UTC] PHP Parse error:  syntax error, unexpected token "public" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 64
+[03-Feb-2026 02:20:36 UTC] PHP Parse error:  syntax error, unexpected token "public" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 64
+[03-Feb-2026 02:26:38 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php on line 11
+[03-Feb-2026 02:27:56 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php on line 11
+[03-Feb-2026 02:28:29 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.estado_manual' in 'field list' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php:23
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php(23): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(773): App\Models\TaskCategory::allForUser()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->gestor()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\TaskCategory.php on line 23
+[03-Feb-2026 02:51:30 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 16
+[03-Feb-2026 02:51:35 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 16
+[03-Feb-2026 03:10:10 UTC] PHP Warning:  Undefined variable $roleName in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 820
+[03-Feb-2026 03:10:10 UTC] PHP Fatal error:  Uncaught TypeError: App\Models\Team::visibleTeamsForRole(): Argument #2 ($roleName) must be of type string, null given, called in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 820 and defined in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Team.php:26
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(820): App\Models\Team::visibleTeamsForRole()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->gestor()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#3 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Team.php on line 26
+[03-Feb-2026 10:35:47 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 27
+[03-Feb-2026 10:40:34 UTC] PHP Fatal error:  Uncaught Error: Call to private method App\Models\Task::allWithAssigneeByIdsAndCategory() from scope App\Controllers\TaskController in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php:31
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->showActividad()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#2 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 31
+[03-Feb-2026 10:41:48 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:41:48 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:41:59 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:41:59 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:51:11 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:51:11 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:51:55 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:51:55 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:56:30 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:56:30 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:56:48 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:56:48 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:58:25 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:58:25 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:58:27 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\edit.php on line 94
+[03-Feb-2026 10:58:35 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:58:35 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:58:36 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\edit.php on line 94
+[03-Feb-2026 10:59:55 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:59:55 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 10:59:56 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\edit.php on line 83
+[03-Feb-2026 11:03:13 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:13 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:18 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:18 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:20 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:21 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:21 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:36 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:03:36 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:05:07 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:05:07 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:30 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:30 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:31 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:31 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:40 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:40 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:43 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:09:43 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:28 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:28 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:29 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:29 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:39 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:39 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:42 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:42 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:42 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:42 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:42 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:42 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:43 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:12:43 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:14:24 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:14:24 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:14:32 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:14:32 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:14:33 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:14:33 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:15:50 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:15:50 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:15:57 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:15:57 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:16:13 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:16:13 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:16:20 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:16:20 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:19:52 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:19:52 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:21:03 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:22:16 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:22:33 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:22:34 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:22:34 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:22:36 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:25:00 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:25:42 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 36
+[03-Feb-2026 11:26:43 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:26:43 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:28:32 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:28:32 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:28:33 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:28:33 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:29:52 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:29:52 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:29:53 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:29:53 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:31:14 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:31:14 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:32:00 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:32:00 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:41:05 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:41:05 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:42:54 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:42:54 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:42:56 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:42:56 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:43:51 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:43:51 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:44:25 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:44:25 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:46:41 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:46:41 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:46:49 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:46:49 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:48:37 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:48:37 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:49:41 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:49:41 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:50:51 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:50:51 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:50:57 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:50:57 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:54:56 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:54:56 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 11:55:55 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect date value: '20226-02-05' for column 'fecha' at row 1 in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:412
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(412): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(55): App\Models\Task::addTimeEntry()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->registrarHoras()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 412
+[03-Feb-2026 11:55:55 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect date value: '20226-02-05' for column 'fecha' at row 1 in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:412
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(412): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(55): App\Models\Task::addTimeEntry()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->registrarHoras()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 412
+[03-Feb-2026 12:04:51 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 12:04:51 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 12:05:00 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 12:05:00 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 12:05:14 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '24-2026-02-04' for key 'kron_task_times.uk_kron_task_times' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:412
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(412): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(55): App\Models\Task::addTimeEntry()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->registrarHoras()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 412
+[03-Feb-2026 12:05:14 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 12:05:14 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:46:41 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:46:41 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:49:33 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:49:33 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:50:45 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:50:45 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:52:14 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:52:14 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:52:17 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:52:17 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:53:45 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:53:45 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:53:57 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '24-2026-02-03' for key 'kron_task_times.uk_kron_task_times' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:412
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(412): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(55): App\Models\Task::addTimeEntry()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->registrarHoras()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 412
+[03-Feb-2026 23:53:57 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '24-2026-02-03' for key 'kron_task_times.uk_kron_task_times' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:412
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(412): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(55): App\Models\Task::addTimeEntry()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\TaskController->registrarHoras()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 412
+[03-Feb-2026 23:55:34 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:55:34 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:58:22 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:58:22 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:59:41 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[03-Feb-2026 23:59:41 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:01:20 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:01:20 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:01:51 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:01:51 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:02:03 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:02:03 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:04:14 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:04:14 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:06:13 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 10
+[04-Feb-2026 00:06:30 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 10
+[04-Feb-2026 00:07:10 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 30
+[04-Feb-2026 00:07:15 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 30
+[04-Feb-2026 00:07:40 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:07:40 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:08:15 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:08:15 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:09 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:09 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:10 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:10 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:11 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:11 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:14 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:09:14 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:10:07 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:10:07 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:10:15 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:10:15 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:10:17 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:10:17 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:11:06 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:11:06 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:11:07 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:11:07 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:11:45 UTC] PHP Warning:  Undefined variable $title in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:11:45 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 14
+[04-Feb-2026 00:13:11 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'newtekcl_db_newtek.kron_user_horas' doesn't exist in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php:27
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php(27): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php(32): App\Models\User::getHourEntries()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\HorasController->registrar()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 27
+[04-Feb-2026 00:14:39 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'newtekcl_db_newtek.kron_user_horas' doesn't exist in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php:27
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php(27): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php(32): App\Models\User::getHourEntries()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\HorasController->registrar()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 27
+[04-Feb-2026 00:16:36 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php:28
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php(28): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php(32): App\Models\User::getHourEntries()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\HorasController->registrar()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 28
+[04-Feb-2026 00:17:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php:46
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php(46): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php(38): App\Models\User::getHourEntries()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\HorasController->registrar()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 46
+[04-Feb-2026 00:19:13 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 9
+[04-Feb-2026 00:19:52 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 17
+[04-Feb-2026 00:19:53 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 17
+[04-Feb-2026 00:20:36 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php:46
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php(46): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php(42): App\Models\User::getHourEntries()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\HorasController->registrar()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 46
+[04-Feb-2026 00:21:34 UTC] PHP Warning:  Undefined variable $authUser in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 25
+[04-Feb-2026 00:21:34 UTC] PHP Warning:  Undefined variable $authUser in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\layouts\main.php on line 59
+[04-Feb-2026 00:24:51 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1366 Incorrect decimal value: '01:30' for column 'horas' at row 1 in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php:29
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php(29): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php(39): App\Models\User::addHourEntry()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(54): App\Controllers\HorasController->registrar()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 29
+[04-Feb-2026 00:35:51 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 49
+[04-Feb-2026 00:36:00 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 49
+[04-Feb-2026 00:38:08 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 49
+[04-Feb-2026 00:38:19 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 49
+[04-Feb-2026 00:45:41 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 47
+[04-Feb-2026 00:46:04 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 47
+[04-Feb-2026 00:46:13 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 47
+[04-Feb-2026 00:48:05 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\User.php on line 10
+[04-Feb-2026 00:48:28 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 8
+[04-Feb-2026 01:01:00 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 70
+[04-Feb-2026 04:17:28 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\AuthController.php on line 48
+[04-Feb-2026 04:18:22 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\AuthController.php on line 49
+[04-Feb-2026 04:18:24 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\AuthController.php on line 49
+[04-Feb-2026 04:19:48 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\01 Proyectos\Zurich\KRON\Kron\public\index.php on line 11
+[04-Feb-2026 04:19:48 UTC] PHP Warning:  http_response_code(): Cannot set response code - headers already sent (output started at C:\01 Proyectos\Zurich\KRON\Kron\config\routes.php:1) in C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php on line 29
+[04-Feb-2026 04:20:31 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\01 Proyectos\Zurich\KRON\Kron\public\index.php on line 11
+[04-Feb-2026 04:20:31 UTC] PHP Warning:  http_response_code(): Cannot set response code - headers already sent (output started at C:\01 Proyectos\Zurich\KRON\Kron\config\routes.php:1) in C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php on line 29
+[04-Feb-2026 04:20:51 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\01 Proyectos\Zurich\KRON\Kron\public\index.php on line 11
+[04-Feb-2026 04:20:51 UTC] PHP Warning:  http_response_code(): Cannot set response code - headers already sent (output started at C:\01 Proyectos\Zurich\KRON\Kron\config\routes.php:1) in C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php on line 29
+[08-Feb-2026 23:56:18 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 21
+[08-Feb-2026 23:56:21 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 21
+[08-Feb-2026 23:56:27 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 21
+[09-Feb-2026 00:13:00 UTC] PHP Warning:  Undefined variable $basePath in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\HorasController.php on line 70
