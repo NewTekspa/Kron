@@ -113,6 +113,9 @@ ob_start();
                                         <a href="<?= $basePath ?>/tareas/editar?id=<?= (int)$tarea['id'] ?>&return=<?= urlencode($basePath . '/tareas/actividad?category_id=' . (int)$actividad['id']) ?>" class="btn btn-small btn-icon" title="Editar tarea">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                         </a>
+                                        <a href="<?= $basePath ?>/tareas/detalle-informativo?id=<?= (int)$tarea['id'] ?>" class="btn btn-small btn-icon" title="Ver detalle informativo" aria-label="Ver detalle informativo">
+                                            <img src="/assets/icons/eye.svg" alt="Ver detalle informativo" width="18" height="18" />
+                                        </a>
                                         <?php
                                         // Verificar si la tarea tiene horas registradas
                                         $tareaTieneHoras = false;

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Core\Database;
@@ -7,6 +6,14 @@ use App\Models\Team;
 
 class Task
 {
+    /**
+     * Elimina un registro de bitácora (log) por su ID
+     */
+    public static function deleteLog(int $logId): bool
+    {
+        $stmt = self::db()->prepare('DELETE FROM kron_task_logs WHERE id = :id');
+        return $stmt->execute(['id' => $logId]);
+    }
     public static function getTitleById(int $taskId): ?string
     {
         $stmt = self::db()->prepare('SELECT titulo FROM kron_tasks WHERE id = :id LIMIT 1');

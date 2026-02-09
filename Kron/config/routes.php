@@ -1,4 +1,9 @@
+
 <?php
+/**
+ * Ruta para eliminar registros de bitácora de tareas
+ */
+$router->post('/tareas/bitacora/eliminar', 'TaskController@deleteLog');
 
 use App\Core\Router;
 
@@ -42,6 +47,7 @@ $router->get('/tareas/revision', 'TaskController@revision');
 $router->get('/tareas/colaborador-tareas', 'TaskController@tareasColaborador');
 $router->get('/tareas', 'TaskController@index');
 $router->post('/tareas/crear', 'TaskController@store');
+$router->get('/tareas/detalle-informativo', 'TaskController@detalleInformativo');
 $router->get('/tareas/detalle', 'TaskController@show');
 $router->get('/tareas/editar', 'TaskController@edit');
 $router->post('/tareas/actualizar', 'TaskController@update');

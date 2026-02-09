@@ -32,7 +32,7 @@ $basePath = $GLOBALS['config']['base_path'] ?? '';
                                 <?php if (in_array($roleName ?? '', ['jefe', 'subgerente', 'administrador'], true)): ?>
                                     <a href="<?= $basePath ?>/tareas/gestion">Seguimiento de Equipo</a>
                                 <?php endif; ?>
-                                <a href="<?= $basePath ?>/tareas">Registro rapido</a>
+                                <!-- Opción 'Registro rapido' eliminada -->
                                 <a href="<?= $basePath ?>/tareas/gestor">Gestor de tareas</a>
                             </div>
                         </div>

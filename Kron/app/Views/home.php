@@ -455,8 +455,7 @@ $showTeamViews = ! $personalOnly;
                         <th class="table-center">Prioridad</th>
                         <th class="table-center">Compromiso</th>
                         <th class="table-center">Estado</th>
-                        <th class="table-center">Acceso</th>
-                        <th class="table-center">Accion</th>
+                        <th class="table-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="openTasksBody">
@@ -479,14 +478,24 @@ $showTeamViews = ! $personalOnly;
                                     </span>
                                 </td>
                                 <td class="table-center">
-                                    <a href="<?= $basePath ?>/tareas/detalle?id=<?= (int) $task['id'] ?>&return=<?= urlencode($basePath) ?>/" class="btn btn-secondary btn-small">Ver</a>
-                                </td>
-                                <td class="table-center">
-                                    <button type="button" class="btn btn-secondary btn-small btn-icon" data-open-modal="statusModal" data-task-id="<?= (int) $task['id'] ?>" data-task-status="<?= htmlspecialchars($task['estado']) ?>" data-task-commitment="<?= htmlspecialchars($task['fecha_compromiso'] ?? '') ?>" data-task-has-hours="<?= (int) ($task['time_count'] ?? 0) > 0 ? '1' : '0' ?>" title="Cambiar estado" aria-label="Cambiar estado">
-                                        <svg viewBox="0 0 16 16" aria-hidden="true">
-                                            <path fill="currentColor" d="M8 1.5a6.5 6.5 0 1 1-6.5 6.5A6.51 6.51 0 0 1 8 1.5zm0 1.6a4.9 4.9 0 1 0 4.9 4.9A4.91 4.91 0 0 0 8 3.1zm.8 2.1v3.9l3 1.7-.8 1.3L7.2 9V5.2z"/>
+                                    <a href="/horas/registrar?tarea_id=<?= (int) $task['id'] ?>&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline points="12 6 12 12 16 14" />
+                                        </svg>
+                                    </a>
+                                    <button type="button" class="btn btn-small btn-icon" data-open-modal="logModal" data-task-id="<?= (int) $task['id'] ?>" data-task-title="<?= htmlspecialchars($task['titulo']) ?>" title="Agregar observación" aria-label="Agregar observación">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                            <line x1="16" y1="13" x2="8" y2="13" />
+                                            <line x1="16" y1="17" x2="8" y2="17" />
+                                            <line x1="10" y1="9" x2="8" y2="9" />
                                         </svg>
                                     </button>
+                                    <a href="/tareas/detalle-informativo?id=<?= (int) $task['id'] ?>" class="btn btn-small btn-icon" title="Ver detalle informativo" aria-label="Ver detalle informativo">
+                                        <img src="/assets/icons/eye.svg" alt="Ver detalle informativo" width="18" height="18" />
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -507,6 +516,26 @@ $showTeamViews = ! $personalOnly;
             </table>
         </div>
     </section>
+<div class="modal" id="logModal" data-modal>
+    <div class="modal-overlay" data-close-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="logModalTitle">
+        <div class="modal-header">
+            <h2 id="logModalTitle">Agregar observación</h2>
+            <button type="button" class="btn btn-secondary btn-small" data-close-modal>Cerrar</button>
+        </div>
+        <form method="post" action="<?= $basePath ?>/tareas/bitacora" class="form" id="logForm">
+            <input type="hidden" name="task_id" value="">
+            <input type="hidden" name="return_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
+            <div class="alert is-hidden" id="logError"></div>
+            <p class="muted" id="logTaskTitle" style="margin-bottom: 16px;"></p>
+            <label>Observación</label>
+            <textarea name="contenido" rows="4" required placeholder="Escribe tu observación aquí..."></textarea>
+            <div class="form-actions">
+                <button type="submit" class="btn">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
 <div class="modal" id="statusModal" data-modal>
     <div class="modal-overlay" data-close-modal></div>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="statusModalTitle">
@@ -723,6 +752,29 @@ $showTeamViews = ! $personalOnly;
         selector.addEventListener('change', toggle);
         toggle();
     }
+
+    const logModal = setupModal('logModal', (event, modal) => {
+        const button = event?.currentTarget;
+        const taskId = button?.getAttribute('data-task-id') || '';
+        const taskTitle = button?.getAttribute('data-task-title') || '';
+        const idInput = modal.querySelector('input[name="task_id"]');
+        if (idInput) {
+            idInput.value = taskId;
+        }
+        const titleElement = modal.querySelector('#logTaskTitle');
+        if (titleElement) {
+            titleElement.textContent = 'Tarea: ' + taskTitle;
+        }
+        const textarea = modal.querySelector('textarea[name="contenido"]');
+        if (textarea) {
+            textarea.value = '';
+        }
+        const errorBox = modal.querySelector('#logError');
+        if (errorBox) {
+            errorBox.classList.add('is-hidden');
+            errorBox.textContent = '';
+        }
+    });
 })();
 </script>
 <?php

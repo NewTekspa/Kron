@@ -11,6 +11,37 @@ use App\Models\User;
 class TaskController extends Controller
 {
     /**
+     * Elimina un registro de bitácora (log) de una tarea
+     */
+    public function deleteLog(): void
+    {
+        $this->requireLogin();
+        $user = Auth::user();
+        $roleName = Auth::roleName() ?? '';
+        $logId = (int) ($_POST['log_id'] ?? 0);
+        $taskId = (int) ($_POST['task_id'] ?? 0);
+        $returnUrl = $this->safeReturnUrl($_POST['return_url'] ?? null);
+        if ($logId <= 0 || $taskId <= 0) {
+            $this->redirect(($returnUrl ?: '/tareas') . '?error=Datos+inv%C3%A1lidos');
+        }
+
+        // Verificar permisos: el usuario debe poder ver la tarea
+        $task = Task::findWithDetails($taskId);
+        if (! $task || ! $this->canViewTask($task, (int) $user['id'], $roleName)) {
+            http_response_code(403);
+            echo 'No autorizado.';
+            return;
+        }
+
+        $ok = Task::deleteLog($logId);
+        if ($ok) {
+            $this->redirect(($returnUrl ?: '/tareas') . '?success=Bit%C3%A1cora+eliminada');
+        } else {
+            $this->redirect(($returnUrl ?: '/tareas') . '?error=No+se+pudo+eliminar');
+        }
+    }
+
+    /**
      * Registrar horas trabajadas en una tarea
      */
     public function registrarHoras(): void
@@ -413,6 +444,36 @@ class TaskController extends Controller
         }
     }
 
+    public function detalleInformativo(): void
+    {
+        $this->requireLogin();
+
+        $user = Auth::user();
+        $roleName = Auth::roleName() ?? '';
+        $id = (int) ($_GET['id'] ?? 0);
+
+        $task = Task::findWithDetails($id);
+        if (! $task || ! $this->canViewTask($task, (int) $user['id'], $roleName)) {
+            http_response_code(404);
+            echo 'Tarea no encontrada.';
+            return;
+        }
+
+        $logs = Task::logs($id);
+        $times = Task::timeEntries($id);
+
+        $this->view('tasks/detalle_informativo', [
+            'title' => 'Detalle informativo de tarea',
+            'tarea' => $task,
+            'asignado' => ['nombre' => $task['usuario_nombre'] ?? '-'],
+            'categoria' => ['nombre' => $task['categoria_nombre'] ?? '-'],
+            'clasificacion' => ['nombre' => $task['clasificacion_nombre'] ?? '-'],
+            'equipo' => ['nombre' => $task['equipo_nombre'] ?? '-'],
+            'horas' => $times,
+            'logs' => $logs,
+        ]);
+    }
+
     public function show(): void
     {
         $this->requireLogin();
@@ -549,6 +610,7 @@ class TaskController extends Controller
         $roleName = Auth::roleName() ?? '';
         $taskId = (int) ($_POST['task_id'] ?? 0);
         $contenido = trim($_POST['contenido'] ?? '');
+        $returnUrl = $this->safeReturnUrl($_POST['return_url'] ?? null);
 
         $task = Task::findWithDetails($taskId);
         if (! $task || ! $this->canViewTask($task, (int) $user['id'], $roleName)) {
@@ -558,12 +620,14 @@ class TaskController extends Controller
         }
 
         if ($contenido === '') {
-            $this->redirect('/tareas/detalle?id=' . $taskId . '&error=Escribe+una+observacion');
+            $redirectTo = $returnUrl ?: ('/tareas/detalle?id=' . $taskId);
+            $this->redirect($redirectTo . '&error=Escribe+una+observacion');
         }
 
         Task::addLog($taskId, (int) $user['id'], $contenido);
 
-        $this->redirect('/tareas/detalle?id=' . $taskId);
+        $redirectTo = $returnUrl ?: ('/tareas/detalle?id=' . $taskId);
+        $this->redirect($redirectTo);
     }
 
     public function addTime(): void
