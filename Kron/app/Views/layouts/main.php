@@ -68,5 +68,6 @@ $basePath = $GLOBALS['config']['base_path'] ?? '';
         <?= $content ?>
     </main>
     <script src="<?= $basePath ?>/assets/js/modals.js"></script>
+    <script src="<?= $basePath ?>/assets/js/chart.min.js"></script>
 </body>
 </html>

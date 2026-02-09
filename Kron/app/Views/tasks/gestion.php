@@ -11,7 +11,7 @@
 ob_start();
 ?>
 <div class="page-header">
-	<h1>Gestión de tarea</h1>
+	<h1>Seguimiento de Equipo</h1>
 	</div>
 
 <!-- Filtros de periodo y equipo -->
@@ -74,6 +74,22 @@ if (!empty($collaboratorStats)) {
     }
 }
 $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCount, 1) : 0;
+
+// Preparar datos para el gráfico de horas por colaborador (últimos 6 meses)
+$chartLabels = $months ?? [];
+$chartData = [];
+$chartNames = [];
+if (!empty($filteredCollaborators) && !empty($hoursByUserByMonth)) {
+    foreach ($filteredCollaborators as $col) {
+        $colId = (int)$col['id'];
+        $chartNames[] = $col['nombre'];
+        $data = [];
+        foreach ($chartLabels as $month) {
+            $data[] = isset($hoursByUserByMonth[$colId][$month]) ? (float)$hoursByUserByMonth[$colId][$month] : 0.0;
+        }
+        $chartData[] = $data;
+    }
+}
 ?>
 <div class="summary-grid" style="display:flex;gap:1em;flex-wrap:nowrap;justify-content:space-between;align-items:flex-start;margin-bottom:0.3em;overflow-x:auto;">
     <div class="summary-card" style="flex:1 1 0;min-width:120px;text-align:center;background:#ffeaea;border:1px solid #c00;color:#c00;padding:0.5em 0;">
@@ -106,6 +122,7 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
     </div>
     <!-- Línea de tareas -->
 </div>
+
 <section class="card-block">
     <div class="card-header">
         <h2>Resumen</h2>
@@ -164,6 +181,11 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
     </div>
 </section>
 
+<!-- Gráfico de horas por colaborador (últimos 6 meses) -->
+<div style="margin-top:2em; background:white; padding:1em; border-radius:4px; box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+    <canvas id="horasColaboradoresChart" height="80"></canvas>
+</div>
+
 
 <script>
 (() => {
@@ -181,6 +203,58 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
     selector.addEventListener('change', toggle);
     toggle();
 })();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Gráfico de horas por colaborador (últimos 6 meses)
+document.addEventListener('DOMContentLoaded', function() {
+    // Esperar a que Chart.js esté disponible
+    const initChart = () => {
+        if (!window.Chart) {
+            setTimeout(initChart, 100);
+            return;
+        }
+        
+        const ctx = document.getElementById('horasColaboradoresChart');
+        if (!ctx) return;
+        
+        const chartLabels = <?= json_encode($chartLabels) ?>;
+        const chartData = <?= json_encode($chartData) ?>;
+        const chartNames = <?= json_encode($chartNames) ?>;
+        
+        const datasets = chartData.map((data, idx) => ({
+            label: chartNames[idx],
+            data,
+            fill: false,
+            borderColor: `hsl(${(idx * 60) % 360}, 70%, 50%)`,
+            backgroundColor: `hsl(${(idx * 60) % 360}, 70%, 50%)`,
+            tension: 0.2
+        }));
+        
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Total de horas por colaborador (últimos 6 meses)' }
+                },
+                interaction: { mode: 'index', intersect: false },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Horas' } },
+                    x: { title: { display: true, text: 'Mes' } }
+                }
+            }
+        });
+    };
+    
+    initChart();
+});
 </script>
 
 
