@@ -124,7 +124,7 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
                     <th class="table-center">En curso</th>
                        <th class="table-center" style="color:#c00;">Críticas</th>
                     <th class="table-center">Cumplimiento</th>
-                    <th class="table-center">Horas por tarea</th>
+                    <th class="table-center">Total de horas</th>
                     <!-- Columna de acciones eliminada -->
                 </tr>
             </thead>
@@ -147,8 +147,8 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
                                    <?= htmlspecialchars((string) ($collaborator['criticas'] ?? 0)) ?>
                                </td>
                             <td class="table-center"><?= htmlspecialchars(number_format((float) $collaborator['cumplimiento'], 1)) ?>%</td>
-                            <td class="table-center" style="font-size:0.95em;max-width:220px;overflow-x:auto;white-space:normal;word-break:break-word;">
-                                <?= htmlspecialchars($collaborator['horas_por_tarea'] ?? '') ?>
+                            <td class="table-center" style="font-size:1em; font-weight:bold;">
+                                <?= htmlspecialchars(number_format((float) $collaborator['horas'], 1)) ?> h
                             </td>
                             <!-- Celda de acciones eliminada -->
                         </tr>
