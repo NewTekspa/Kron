@@ -33,6 +33,7 @@ $router->post('/gestion-tareas/categorias/cambiar-estado', 'TaskManagementContro
 $router->get('/tareas/gestion', 'TaskGestionController@index');
 $router->get('/tareas/gestor', 'TaskController@gestor');
 $router->post('/tareas/gestor/crear-actividad', 'TaskController@crearActividad');
+$router->post('/tareas/gestor/editar-actividad', 'TaskController@editarActividad');
 $router->post('/tareas/gestor/clonar-actividad', 'TaskController@clonarActividad');
 $router->post('/tareas/gestor/eliminar-actividad', 'TaskController@eliminarActividad');
 $router->get('/tareas/actividad', 'TaskController@showActividad');

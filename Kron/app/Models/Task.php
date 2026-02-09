@@ -251,7 +251,7 @@ class Task
                 FROM kron_tasks t
                 WHERE t.user_id IN (' . $placeholders . ')
                 AND t.estado = "terminada"
-                AND DATE(t.fecha_termino_real) BETWEEN ? AND ?
+                AND DATE(t.created_at) BETWEEN ? AND ?
                 GROUP BY t.user_id';
         $stmt = self::db()->prepare($sql);
         $stmt->execute(array_merge(array_values($userIds), [$startDate, $endDate]));
@@ -263,6 +263,16 @@ class Task
         }
 
         return $result;
+    }
+
+    private static function columnExists(string $table, string $column): bool
+    {
+        try {
+            $stmt = self::db()->query("SHOW COLUMNS FROM {$table} LIKE '{$column}'");
+            return $stmt->rowCount() > 0;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     public static function countsByUserIdsByMonth(array $userIds, string $sinceDate): array
@@ -316,6 +326,32 @@ class Task
         $result = [];
         foreach ($rows as $row) {
             $result[(int) $row['user_id']] = (float) $row['horas'];
+        }
+
+        return $result;
+    }
+
+    public static function countsByStateAndUserIdsInRange(array $userIds, string $estado, string $startDate, string $endDate): array
+    {
+        if (empty($userIds)) {
+            return [];
+        }
+
+        $placeholders = implode(',', array_fill(0, count($userIds), '?'));
+        $sql = 'SELECT t.user_id,
+                COUNT(*) AS total
+                FROM kron_tasks t
+                WHERE t.user_id IN (' . $placeholders . ')
+                AND t.estado = ?
+                AND DATE(t.created_at) BETWEEN ? AND ?
+                GROUP BY t.user_id';
+        $stmt = self::db()->prepare($sql);
+        $stmt->execute(array_merge(array_values($userIds), [$estado, $startDate, $endDate]));
+        $rows = $stmt->fetchAll();
+
+        $result = [];
+        foreach ($rows as $row) {
+            $result[(int) $row['user_id']] = (int) $row['total'];
         }
 
         return $result;

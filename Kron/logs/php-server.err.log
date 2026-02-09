@@ -395,3 +395,4 @@ Stack trace:
 [09-Feb-2026 02:07:40 UTC] PHP Warning:  Undefined variable $chartLabels in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\gestion.php on line 190
 [09-Feb-2026 02:07:40 UTC] PHP Warning:  Undefined variable $chartData in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\gestion.php on line 191
 [09-Feb-2026 02:07:40 UTC] PHP Warning:  Undefined variable $chartNames in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\gestion.php on line 192
+[09-Feb-2026 02:36:44 UTC] PHP Parse error:  syntax error, unexpected token "<" in C:\01 Proyectos\Zurich\KRON\Kron\app\Views\tasks\gestor.php on line 104

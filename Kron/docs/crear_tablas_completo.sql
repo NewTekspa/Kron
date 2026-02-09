@@ -115,6 +115,7 @@ CREATE TABLE kron_tasks (
     fecha_compromiso DATE DEFAULT NULL,
     prioridad VARCHAR(20) NOT NULL DEFAULT 'normal',
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente',
+    fecha_termino_real DATETIME DEFAULT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NULL,
     FOREIGN KEY (category_id) REFERENCES kron_task_categories(id) ON DELETE CASCADE,

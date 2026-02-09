@@ -87,6 +87,9 @@ class TaskGestionController extends Controller
 
         $taskTotals = Task::countsByUserIdsInRange($visibleUserIds, $monthStart, $monthEnd);
         $taskCompleted = Task::completedCountsByUserIdsInRange($visibleUserIds, $monthStart, $monthEnd);
+        $taskPendientes = Task::countsByStateAndUserIdsInRange($visibleUserIds, 'pendiente', $monthStart, $monthEnd);
+        $taskAtrasadas = Task::countsByStateAndUserIdsInRange($visibleUserIds, 'atrasada', $monthStart, $monthEnd);
+        $taskEnCurso = Task::countsByStateAndUserIdsInRange($visibleUserIds, 'en_curso', $monthStart, $monthEnd);
         $hoursTotals = Task::hoursTotalsByUserIdsInRange($visibleUserIds, $monthStart, $monthEnd);
 
         $collaboratorStats = [];
@@ -100,27 +103,26 @@ class TaskGestionController extends Controller
             }
             $total = (int) ($taskTotals[$itemUserId] ?? 0);
             $completed = (int) ($taskCompleted[$itemUserId] ?? 0);
+            $pendientes = (int) ($taskPendientes[$itemUserId] ?? 0);
+            $atrasadas = (int) ($taskAtrasadas[$itemUserId] ?? 0);
+            $encurso = (int) ($taskEnCurso[$itemUserId] ?? 0);
             $hours = (float) ($hoursTotals[$itemUserId] ?? 0);
-            // Contar tareas por estado para el colaborador y sumar horas por tarea
-            $tasks = Task::allForUser($itemUserId, $roleName);
-            $pendientes = 0;
-            $atrasadas = 0;
-            $encurso = 0;
-            $horasPorTarea = [];
-            foreach ($tasks as $t) {
-                if (($t['estado'] ?? '') === 'pendiente') $pendientes++;
-                if (($t['estado'] ?? '') === 'atrasada') $atrasadas++;
-                if (($t['estado'] ?? '') === 'en_curso') $encurso++;
-                // Sumar horas por tarea
-                $titulo = $t['titulo'] ?? 'Sin título';
-                $horasTarea = isset($t['total_horas']) ? (float)$t['total_horas'] : 0.0;
-                if ($horasTarea > 0) {
-                    $horasPorTarea[] = $titulo . ': ' . number_format($horasTarea, 1) . 'h';
-                }
-            }
+            
             $rate = $total > 0 ? round(($completed / $total) * 100, 1) : 0;
             $critical = TaskIndicator::countCriticalNotFinished([$itemUserId]);
             $totalCritical += $critical;
+            
+            // Obtener equipos del usuario para filtrado
+            $userTeamIds = [];
+            foreach ($teams as $t) {
+                $members = $teamMembers[(int)$t['id']] ?? [];
+                foreach ($members as $m) {
+                    if ((int)$m['id'] === $itemUserId) {
+                        $userTeamIds[] = (int)$t['id'];
+                    }
+                }
+            }
+            
             $collaboratorStats[] = [
                 'id' => $itemUserId,
                 'nombre' => $item['nombre'],
@@ -131,9 +133,9 @@ class TaskGestionController extends Controller
                 'atrasadas' => $atrasadas,
                 'encurso' => $encurso,
                 'horas' => $hours,
-                'horas_por_tarea' => implode(', ', $horasPorTarea),
                 'cumplimiento' => $rate,
                 'criticas' => $critical,
+                'team_ids' => $userTeamIds,
             ];
         }
 

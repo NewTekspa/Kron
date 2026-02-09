@@ -87,7 +87,7 @@ class TaskCategory
             $where = 'c.created_by = ? OR c.team_id IS NULL';
             $params = [$userId];
         }
-        $sql = 'SELECT c.id, c.nombre, c.classification_id, cl.nombre AS clasificacion_nombre,
+        $sql = 'SELECT c.id, c.nombre, c.classification_id, c.team_id, cl.nombre AS clasificacion_nombre,
                    (SELECT COUNT(*) FROM kron_tasks t WHERE t.category_id = c.id) AS total_tareas,
                    (SELECT COUNT(*) FROM kron_tasks t WHERE t.category_id = c.id AND t.estado != "terminada") AS tareas_abiertas,
                    (SELECT COUNT(*) FROM kron_tasks t WHERE t.category_id = c.id AND t.estado = "terminada") AS tareas_terminadas,

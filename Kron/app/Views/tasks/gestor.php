@@ -54,6 +54,42 @@ ob_start();
     </div>
 </div>
 
+<div class="modal" id="editActivityModal" data-modal style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1000; justify-content:center; align-items:center;">
+    <div class="modal-overlay" data-close-modal onclick="closeEditModal()"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="editActivityModalTitle" style="margin:auto;">
+        <div class="modal-header">
+            <h2 id="editActivityModalTitle">Editar actividad</h2>
+            <button type="button" class="btn btn-secondary btn-small" data-close-modal onclick="closeEditModal()">Cerrar</button>
+        </div>
+        <form method="post" action="<?= $basePath ?>/tareas/gestor/editar-actividad" class="form">
+            <input type="hidden" name="category_id" id="edit_category_id">
+            <label>Nombre de la actividad</label>
+            <input type="text" name="nombre" id="edit_nombre" required>
+            <label>Clasificación</label>
+            <select name="clasificacion_id" id="edit_clasificacion_id" required>
+                <option value="">Selecciona una clasificación</option>
+                <?php if (!empty($clasificaciones)): ?>
+                    <?php foreach ($clasificaciones as $cl): ?>
+                        <option value="<?= (int)$cl['id'] ?>"><?= htmlspecialchars($cl['nombre']) ?></option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+            <label>Equipo responsable</label>
+            <select name="team_id" id="edit_team_id" required>
+                <option value="">Selecciona un equipo</option>
+                <?php if (!empty($equipos)): ?>
+                    <?php foreach ($equipos as $team): ?>
+                        <option value="<?= (int)$team['id'] ?>"><?= htmlspecialchars($team['nombre']) ?></option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+            <div class="form-actions">
+                <button type="submit" class="btn">Actualizar actividad</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <?php
 // Indicadores de tareas - calcular totales basados en todas las tareas del usuario
 $totalTareas = $totalPendientes = $totalTerminadas = $totalEnCurso = $totalCriticas = $totalAtrasadas = 0;
@@ -87,6 +123,19 @@ if (!empty($activities)) {
         }
     }
 }
+// Aplicar filtros a las actividades
+$filtroEstado = $_GET['filtro_estado'] ?? '';
+$filtroTitulo = isset($_GET['filtro_titulo']) ? mb_strtolower(trim($_GET['filtro_titulo'])) : '';
+$filteredActivities = [];
+if (!empty($activities)) {
+    foreach ($activities as $actividad) {
+        $matchEstado = ($filtroEstado === '' || ($actividad['estado_actividad'] ?? '') === $filtroEstado);
+        $matchTitulo = ($filtroTitulo === '' || mb_strpos(mb_strtolower($actividad['nombre']), $filtroTitulo) !== false);
+        if ($matchEstado && $matchTitulo) {
+            $filteredActivities[] = $actividad;
+        }
+    }
+}
 // Formatear horas a HH:MM
 $horasMes = 0;
 $mesActual = date('Y-m-01');
@@ -115,44 +164,50 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
 ?>
 
 <style>
+/* Tarjetas resumen más angostas, títulos en una sola línea y números más pequeños */
 .summary-cards {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 16px;
-    margin-bottom: 24px;
-    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
     align-items: stretch;
 }
 .summary-card-mini {
-    flex: 1 1 0;
-    min-width: 120px;
-    max-width: 200px;
-}
-.summary-card-mini {
+    flex: 0 0 90px;
+    min-width: 80px;
+    max-width: 90px;
     background: white;
     border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 10px 6px 10px 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .summary-card-mini h3 {
-    margin: 0 0 4px;
-    font-size: 11px;
+    margin: 0 0 2px 0;
+    font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
     color: #64748b;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    line-height: 1.1;
 }
 .summary-card-mini .value {
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 700;
     margin: 0;
     color: #1e293b;
+    line-height: 1.1;
 }
 .summary-card-mini .subtitle {
-    margin: 4px 0 0;
-    font-size: 11px;
+    margin: 2px 0 0;
+    font-size: 10px;
     color: #94a3b8;
 }
 </style>
@@ -192,9 +247,6 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
     </div>
 </div>
 
-
-</div>
-
 <div class="dashboard-top">
     <div class="dashboard-col" style="flex: 2 1 0; min-width: 1200px; max-width: 1800px; margin: 0 auto;">
         <section class="card-block dashboard-card" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); box-shadow: var(--shadow); min-height: 420px;">
@@ -215,6 +267,24 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
                     </div>
                 </div>
             </div>
+            
+            <!-- Filtros de estado y búsqueda por título -->
+            <form method="get" style="margin: 20px 0; display: flex; gap: 1em; align-items: flex-end; justify-content: center;">
+                <div>
+                    <label for="filtro_estado" style="font-weight:bold; font-size:13px;">Estado:</label>
+                    <select name="filtro_estado" id="filtro_estado" style="padding:0.4em; border:1px solid #ddd; border-radius:4px; min-width: 120px;">
+                        <option value="">Todos</option>
+                        <option value="Abierta"<?= (isset($_GET['filtro_estado']) && $_GET['filtro_estado']==='Abierta') ? ' selected' : '' ?>>Abierta</option>
+                        <option value="Cerrada"<?= (isset($_GET['filtro_estado']) && $_GET['filtro_estado']==='Cerrada') ? ' selected' : '' ?>>Cerrada</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filtro_titulo" style="font-weight:bold; font-size:13px;">Buscar título:</label>
+                    <input type="text" name="filtro_titulo" id="filtro_titulo" value="<?= htmlspecialchars($_GET['filtro_titulo'] ?? '') ?>" placeholder="Actividad..." style="padding:0.4em; border:1px solid #ddd; border-radius:4px; min-width: 180px;">
+                </div>
+                <button type="submit" class="btn" style="margin-bottom:0;">Filtrar</button>
+            </form>
+            
             <div class="table-wrap" style="margin-top: 24px;">
                 <table class="table table-compact">
                     <thead>
@@ -233,8 +303,8 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($activities)): ?>
-                            <?php foreach ($activities as $actividad): ?>
+                        <?php if (!empty($filteredActivities)): ?>
+                            <?php foreach ($filteredActivities as $actividad): ?>
                                 <?php
                                 // Obtener tareas de la actividad
                                 $tareas = [];
@@ -289,6 +359,12 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
                                                     <line x1="8" y1="16" x2="16" y2="16"/>
                                                 </svg>
                                             </a>
+                                            <button type="button" class="btn btn-small btn-icon" title="Editar actividad" aria-label="Editar actividad" onclick="openEditModal(<?= (int)$actividad['id'] ?>, '<?= htmlspecialchars(addslashes($actividad['nombre'])) ?>', <?= (int)($actividad['classification_id'] ?? 0) ?>, <?= (int)($actividad['team_id'] ?? 0) ?>)" style="color: #3498db;">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                            </button>
                                             <button type="button" class="btn btn-small btn-icon" title="Clonar actividad" aria-label="Clonar actividad" onclick="openCloneModal(<?= (int)$actividad['id'] ?>, '<?= htmlspecialchars(addslashes($actividad['nombre'])) ?>')">
                                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                     <rect x="8" y="8" width="8" height="8" rx="2"/>
@@ -341,6 +417,18 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
 </form>
 
 <script>
+function openEditModal(id, nombre, clasificacionId, teamId) {
+    document.getElementById('edit_category_id').value = id;
+    document.getElementById('edit_nombre').value = nombre;
+    document.getElementById('edit_clasificacion_id').value = clasificacionId;
+    document.getElementById('edit_team_id').value = teamId;
+    var modal = document.getElementById('editActivityModal');
+    modal.style.display = 'flex';
+}
+function closeEditModal() {
+    var modal = document.getElementById('editActivityModal');
+    modal.style.display = 'none';
+}
 function openCloneModal(id, nombre) {
     document.getElementById('clone_origen_id').value = id;
     document.getElementById('clone_nuevo_nombre').value = nombre + ' (Copia)';

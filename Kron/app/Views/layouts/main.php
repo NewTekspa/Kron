@@ -64,8 +64,10 @@ $basePath = $GLOBALS['config']['base_path'] ?? '';
             <?php endif; ?>
         </div>
     </header>
-    <main class="container">
-        <?= $content ?>
+    <main class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 80vh;">
+        <div style="width: 100%; max-width: 1800px;">
+            <?= $content ?>
+        </div>
     </main>
     <script src="<?= $basePath ?>/assets/js/modals.js"></script>
     <script src="<?= $basePath ?>/assets/js/chart.min.js"></script>

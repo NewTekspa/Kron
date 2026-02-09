@@ -125,6 +125,46 @@ class TaskController extends Controller
     }
 
     /**
+     * Editar una actividad existente
+     */
+    public function editarActividad(): void
+    {
+        $this->requireLogin();
+        $categoryId = (int)($_POST['category_id'] ?? 0);
+        $nombre = trim($_POST['nombre'] ?? '');
+        $clasificacionId = (int)($_POST['clasificacion_id'] ?? 0);
+        $teamId = (int)($_POST['team_id'] ?? 0);
+        
+        if ($categoryId === 0 || $nombre === '' || $clasificacionId <= 0 || $teamId <= 0) {
+            $this->redirect('/tareas/gestor?error=Todos+los+campos+son+obligatorios');
+        }
+        
+        // Verificar que la categoría existe
+        $category = \App\Models\TaskCategory::findById($categoryId);
+        if (!$category) {
+            $this->redirect('/tareas/gestor?error=Actividad+no+encontrada');
+        }
+        
+        // Validar que la clasificación existe
+        $clasificacion = \App\Models\TaskClassification::findById($clasificacionId);
+        if (!$clasificacion) {
+            $this->redirect('/tareas/gestor?error=Clasificación+inválida');
+        }
+        
+        // Validar que el equipo existe
+        if (!\App\Models\Team::exists($teamId)) {
+            $this->redirect('/tareas/gestor?error=Equipo+inválido');
+        }
+        
+        // Actualizar la actividad
+        $GLOBALS['team_id'] = $teamId;
+        \App\Models\TaskCategory::updateDetails($categoryId, $nombre, $clasificacionId);
+        unset($GLOBALS['team_id']);
+        
+        $this->redirect('/tareas/gestor?success=Actividad+actualizada');
+    }
+
+    /**
      * Clonar una actividad con sus tareas y colaboradores (sin fechas ni horas)
      */
     public function clonarActividad(): void
