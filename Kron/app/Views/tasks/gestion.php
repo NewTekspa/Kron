@@ -11,9 +11,8 @@
 ob_start();
 ?>
 <div class="page-header">
-    <h1>Gestión de tarea</h1>
-    <button type="button" class="btn">Nueva actividad</button>
-    </div>
+	<h1>Gestión de tarea</h1>
+	</div>
 
 <!-- Filtros de periodo y equipo -->
 <?php
