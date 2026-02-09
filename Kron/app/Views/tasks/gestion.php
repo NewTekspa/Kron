@@ -107,36 +107,6 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
     </div>
     <!-- Línea de tareas -->
 </div>
-<div class="summary-grid" style="display:flex;gap:1em;flex-wrap:nowrap;justify-content:space-between;align-items:flex-start;margin-bottom:2em;overflow-x:auto;">
-    <!-- Línea de horas -->
-    <div class="summary-card" style="flex:1 1 0;min-width:120px;text-align:center;background:#ffeaea;border:1px solid #c00;color:#c00;padding:0.5em 0;">
-        <h3 style="font-size:0.85em;margin:0;line-height:1;">CRÍTICAS (H)</h3>
-        <p style="font-size:1.1em;margin:0;line-height:1.2;white-space:nowrap;"><?= htmlspecialchars(number_format($totalCritical * ($totalHoursFicha / max($totalTasksFicha,1)), 1)) ?> h</p>
-    </div>
-    <div class="summary-card" style="flex:1 1 0;min-width:120px;text-align:center;padding:0.5em 0;">
-        <h3 style="font-size:0.85em;margin:0;line-height:1;">TAREAS (H)</h3>
-           <p style="font-size:0.95em;margin:0;line-height:1.1;white-space:nowrap;"><?= htmlspecialchars((string) $totalCritical) ?></p>
-    </div>
-    <div class="summary-card" style="flex:1 1 0;min-width:120px;text-align:center;padding:0.5em 0;">
-        <h3 style="font-size:0.85em;margin:0;line-height:1;">TERMINADAS (H)</h3>
-           <p style="font-size:0.95em;margin:0;line-height:1.1;white-space:nowrap;"><?= htmlspecialchars((string) $totalTasksFicha) ?></p>
-    </div>
-    <div class="summary-card" style="flex:1 1 0;min-width:120px;text-align:center;padding:0.5em 0;">
-        <h3 style="font-size:0.85em;margin:0;line-height:1;">PENDIENTES (H)</h3>
-           <p style="font-size:0.95em;margin:0;line-height:1.1;white-space:nowrap;"><?= htmlspecialchars((string) $totalCompletedFicha) ?></p>
-    </div>
-    <div class="summary-card" style="flex:1 1 0;min-width:120px;text-align:center;padding:0.5em 0;">
-        <h3 style="font-size:0.85em;margin:0;line-height:1;">ATRASADAS (H)</h3>
-           <p style="font-size:0.95em;margin:0;line-height:1.1;white-space:nowrap;"><?= htmlspecialchars((string) $totalPendientes) ?></p>
-    </div>
-    <div class="summary-card" style="flex:1 1 0;min-width:120px;text-align:center;padding:0.5em 0;">
-        <h3 style="font-size:0.85em;margin:0;line-height:1;">EN CURSO (H)</h3>
-           <p style="font-size:0.95em;margin:0;line-height:1.1;white-space:nowrap;"><?= htmlspecialchars((string) $totalAtrasadas) ?></p>
-    </div>
-    
-</div>
-</div>
-           <p style="font-size:0.95em;margin:0;line-height:1.1;white-space:nowrap;"><?= htmlspecialchars(number_format($completionRateFicha, 1)) ?>%</p>
 <section class="card-block">
     <div class="card-header">
         <h2>Resumen</h2>
@@ -154,7 +124,6 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
                     <th class="table-center">En curso</th>
                        <th class="table-center" style="color:#c00;">Críticas</th>
                     <th class="table-center">Cumplimiento</th>
-                    <th class="table-center">Horas</th>
                     <!-- Columna de acciones eliminada -->
                 </tr>
             </thead>
@@ -177,7 +146,6 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
                                    <?= htmlspecialchars((string) ($collaborator['criticas'] ?? 0)) ?>
                                </td>
                             <td class="table-center"><?= htmlspecialchars(number_format((float) $collaborator['cumplimiento'], 1)) ?>%</td>
-                            <td class="table-center"><?= htmlspecialchars(number_format((float) $collaborator['horas'], 1)) ?> h</td>
                             <!-- Celda de acciones eliminada -->
                         </tr>
                     <?php endforeach; ?>
@@ -212,16 +180,10 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
         <!-- Filtro de período eliminado -->
     </div>
     <div style="display: flex; gap: 2em; flex-wrap: wrap; justify-content: center;">
-        <div style="flex: 1 1 45%; min-width: 500px; max-width: 650px;">
+        <div style="flex: 1 1 90%; min-width: 500px; max-width: 900px; margin: 0 auto;">
             <h3 style="font-size:1em; margin-bottom:0.5em; text-align:center;">Total de tareas</h3>
             <div style="position: relative; height: 350px;">
                 <canvas id="chartTareasColaboradores"></canvas>
-            </div>
-        </div>
-        <div style="flex: 1 1 45%; min-width: 500px; max-width: 650px;">
-            <h3 style="font-size:1em; margin-bottom:0.5em; text-align:center;">Total de horas</h3>
-            <div style="position: relative; height: 350px;">
-                <canvas id="chartHorasColaboradores"></canvas>
             </div>
         </div>
     </div>
@@ -251,33 +213,27 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     let chartTareas = null;
-    let chartHoras = null;
 
     function prepararDatos(periodo) {
         const colaboradorLabels = [];
         const tareasData = [];
-        const horasData = [];
 
         colaboradores.forEach(col => {
             const userId = col.id;
             let totalTareas = 0;
-            let totalHoras = 0;
 
             if (periodo === 'acumulativo') {
                 // Sumar últimos 6 meses
                 meses.forEach(mes => {
                     totalTareas += (tasksByUser[userId] && tasksByUser[userId][mes]) ? Number(tasksByUser[userId][mes]) : 0;
-                    totalHoras += (hoursByUser[userId] && hoursByUser[userId][mes]) ? Number(hoursByUser[userId][mes]) : 0;
                 });
             } else {
                 // Mes actual
                 totalTareas = tasksByUserCurrentMonth[userId] || 0;
-                totalHoras = hoursByUserCurrentMonth[userId] || 0;
             }
 
             colaboradorLabels.push(col.nombre);
             tareasData.push(totalTareas);
-            horasData.push(totalHoras);
         });
 
         const backgroundColors = colaboradorLabels.map((_, i) => colors[i % colors.length]);
@@ -286,27 +242,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Calcular máximos con margen +3
         const maxTareas = Math.max(...tareasData);
         const maxTareasChart = maxTareas + 3;
-        
-        const maxHoras = Math.max(...horasData);
-        const maxHorasChart = maxHoras + 3;
 
         return {
             colaboradorLabels,
             tareasData,
-            horasData,
             backgroundColors,
             borderColors,
-            maxTareasChart,
-            maxHorasChart
+            maxTareasChart
         };
     }
 
     function crearGraficos(periodo) {
         const datos = prepararDatos(periodo);
 
-        // Destruir gráficos existentes
+        // Destruir gráfico existente
         if (chartTareas) chartTareas.destroy();
-        if (chartHoras) chartHoras.destroy();
 
         // Gráfico de Tareas
         const canvasTareas = document.getElementById('chartTareasColaboradores');
@@ -379,79 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             } catch (error) {
                 console.error('Error creando gráfico de tareas:', error);
-            }
-        }
-
-        // Gráfico de Horas
-        const canvasHoras = document.getElementById('chartHorasColaboradores');
-        if (canvasHoras) {
-            try {
-                const ctxHoras = canvasHoras.getContext('2d');
-                chartHoras = new Chart(ctxHoras, {
-                    type: 'bar',
-                    data: {
-                        labels: datos.colaboradorLabels,
-                        datasets: [{
-                            label: 'Total horas',
-                            data: datos.horasData,
-                            backgroundColor: datos.backgroundColors,
-                            borderColor: datos.borderColors,
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        indexAxis: 'y',
-                        plugins: { 
-                            legend: { 
-                                display: false
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return 'Horas: ' + context.parsed.x.toFixed(1);
-                                    }
-                                }
-                            },
-                            datalabels: {
-                                display: true,
-                                align: 'end',
-                                anchor: 'end',
-                                color: '#000',
-                                font: {
-                                    weight: 'bold',
-                                    size: 12
-                                },
-                                formatter: function(value) {
-                                    return value.toFixed(1);
-                                }
-                            }
-                        },
-                        scales: { 
-                            x: { 
-                                beginAtZero: true,
-                                max: datos.maxHorasChart,
-                                ticks: {
-                                    precision: 1
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Total de horas'
-                                }
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Colaborador'
-                                }
-                            }
-                        }
-                    },
-                    plugins: [ChartDataLabels]
-                });
-            } catch (error) {
-                console.error('Error creando gráfico de horas:', error);
             }
         }
     }
