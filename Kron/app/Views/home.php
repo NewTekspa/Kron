@@ -493,8 +493,11 @@ $showTeamViews = ! $personalOnly;
                                             <line x1="10" y1="9" x2="8" y2="9" />
                                         </svg>
                                     </button>
-                                    <a href="/tareas/detalle-informativo?id=<?= (int) $task['id'] ?>" class="btn btn-small btn-icon" title="Ver detalle informativo" aria-label="Ver detalle informativo">
-                                        <img src="/assets/icons/eye.svg" alt="Ver detalle informativo" width="18" height="18" />
+                                    <a href="<?= $basePath ?>/tareas/detalle-informativo?id=<?= (int) $task['id'] ?>" class="btn btn-small btn-icon" title="Ver detalle informativo" aria-label="Ver detalle informativo">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
                                     </a>
                                 </td>
                             </tr>
