@@ -478,27 +478,29 @@ $showTeamViews = ! $personalOnly;
                                     </span>
                                 </td>
                                 <td class="table-center">
-                                    <a href="/horas/registrar?tarea_id=<?= (int) $task['id'] ?>&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10" />
-                                            <polyline points="12 6 12 12 16 14" />
-                                        </svg>
-                                    </a>
-                                    <button type="button" class="btn btn-small btn-icon" data-open-modal="logModal" data-task-id="<?= (int) $task['id'] ?>" data-task-title="<?= htmlspecialchars($task['titulo']) ?>" title="Agregar observación" aria-label="Agregar observación">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                                            <polyline points="14 2 14 8 20 8" />
-                                            <line x1="16" y1="13" x2="8" y2="13" />
-                                            <line x1="16" y1="17" x2="8" y2="17" />
-                                            <line x1="10" y1="9" x2="8" y2="9" />
-                                        </svg>
-                                    </button>
-                                    <a href="<?= $basePath ?>/tareas/detalle-informativo?id=<?= (int) $task['id'] ?>" class="btn btn-small btn-icon" title="Ver detalle informativo" aria-label="Ver detalle informativo">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                            <circle cx="12" cy="12" r="3"/>
-                                        </svg>
-                                    </a>
+                                    <div style="display: flex; flex-direction: row; gap: 4px; align-items: center; justify-content: center; flex-wrap: nowrap;">
+                                        <a href="/horas/registrar?tarea_id=<?= (int) $task['id'] ?>&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <polyline points="12 6 12 12 16 14" />
+                                            </svg>
+                                        </a>
+                                        <button type="button" class="btn btn-small btn-icon" data-open-modal="logModal" data-task-id="<?= (int) $task['id'] ?>" data-task-title="<?= htmlspecialchars($task['titulo']) ?>" title="Agregar observación" aria-label="Agregar observación">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                                <polyline points="14 2 14 8 20 8" />
+                                                <line x1="16" y1="13" x2="8" y2="13" />
+                                                <line x1="16" y1="17" x2="8" y2="17" />
+                                                <line x1="10" y1="9" x2="8" y2="9" />
+                                            </svg>
+                                        </button>
+                                        <a href="<?= $basePath ?>/tareas/detalle-informativo?id=<?= (int) $task['id'] ?>" class="btn btn-small btn-icon" title="Ver detalle informativo" aria-label="Ver detalle informativo">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
