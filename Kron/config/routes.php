@@ -38,6 +38,7 @@ $router->post('/tareas/gestor/eliminar-actividad', 'TaskController@eliminarActiv
 $router->get('/tareas/actividad', 'TaskController@showActividad');
 $router->post('/tareas/registrar-horas', 'TaskController@registrarHoras');
 $router->get('/tareas/revision', 'TaskController@revision');
+$router->get('/tareas/colaborador-tareas', 'TaskController@tareasColaborador');
 $router->get('/tareas', 'TaskController@index');
 $router->post('/tareas/crear', 'TaskController@store');
 $router->get('/tareas/detalle', 'TaskController@show');

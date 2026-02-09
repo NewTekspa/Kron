@@ -166,6 +166,36 @@ class TaskController extends Controller
         $this->redirect('/tareas/gestor?success=Actividad+eliminada');
     }
 
+    /**
+     * Vista de solo lectura de tareas asignadas a un colaborador
+     */
+    public function tareasColaborador(): void
+    {
+        $this->requireLogin();
+        $colaboradorId = isset($_GET['colaborador_id']) ? (int)$_GET['colaborador_id'] : 0;
+        if (!$colaboradorId) {
+            http_response_code(400);
+            echo 'Colaborador no especificado.';
+            return;
+        }
+        $colaborador = \App\Models\User::findById($colaboradorId);
+        if (!$colaborador) {
+            http_response_code(404);
+            echo 'Colaborador no encontrado.';
+            return;
+        }
+        $tareas = \App\Models\Task::allForUserIds([$colaboradorId]);
+        $basePath = $_ENV['BASE_PATH'] ?? '';
+        $returnUrl = $_GET['return_url'] ?? ($basePath . '/tareas/gestion');
+        $this->view('tasks/colaborador_tareas', [
+            'title' => 'Tareas de ' . $colaborador['nombre'],
+            'colaborador' => $colaborador,
+            'tareas' => $tareas,
+            'basePath' => $basePath,
+            'returnUrl' => $returnUrl,
+        ]);
+    }
+
     private array $statusOptions = ['pendiente', 'en_curso', 'congelada', 'atrasada', 'terminada'];
     private array $priorityOptions = ['baja', 'media', 'alta', 'critica'];
 

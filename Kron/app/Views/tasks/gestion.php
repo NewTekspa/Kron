@@ -124,6 +124,7 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
                        <th class="table-center" style="color:#c00;">Críticas</th>
                     <th class="table-center">Cumplimiento</th>
                     <th class="table-center">Total de horas</th>
+                    <th class="table-center">Ver tareas</th>
                     <!-- Columna de acciones eliminada -->
                 </tr>
             </thead>
@@ -148,6 +149,11 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
                             <td class="table-center"><?= htmlspecialchars(number_format((float) $collaborator['cumplimiento'], 1)) ?>%</td>
                             <td class="table-center" style="font-size:1em; font-weight:bold;">
                                 <?= htmlspecialchars(number_format((float) $collaborator['horas'], 1)) ?> h
+                            </td>
+                            <td class="table-center">
+                                <a href="<?= $basePath ?>/tareas/colaborador-tareas?colaborador_id=<?= (int)$collaborator['id'] ?>&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" title="Ver tareas asignadas" class="btn btn-small btn-icon" style="padding:4px 8px;">
+                                    <img src="<?= $basePath ?>/assets/icons/eye.svg" alt="Ver tareas" width="18" height="18" />
+                                </a>
                             </td>
                             <!-- Celda de acciones eliminada -->
                         </tr>
