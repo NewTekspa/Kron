@@ -116,18 +116,25 @@ $showTeamViews = ! $personalOnly;
                     <div>
                         <h2 style="margin: 0 0 4px;">Cumplimiento</h2>
                         <?php
-                        // Calcular el porcentaje de cumplimiento del equipo (tareas terminadas / total)
+                        // Calcular el porcentaje de cumplimiento acumulado (tareas terminadas / total)
                         $cumplimiento = 0;
+                        $totalTareas = 0;
+                        $totalTerminadas = 0;
+                        
                         if (!empty($teamStats)) {
-                            $totalTareas = 0;
-                            $totalTerminadas = 0;
                             foreach ($teamStats as $stat) {
                                 $totalTareas += (int)($stat['total'] ?? 0);
                                 $totalTerminadas += (int)($stat['terminadas'] ?? 0);
                             }
-                            if ($totalTareas > 0) {
-                                $cumplimiento = round(($totalTerminadas / $totalTareas) * 100);
+                        } elseif (!empty($userStats)) {
+                            foreach ($userStats as $stat) {
+                                $totalTareas += (int)($stat['total'] ?? 0);
+                                $totalTerminadas += (int)($stat['terminadas'] ?? 0);
                             }
+                        }
+                        
+                        if ($totalTareas > 0) {
+                            $cumplimiento = round(($totalTerminadas / $totalTareas) * 100);
                         }
                         ?>
                         <p class="muted" style="margin: 0; font-size: 32px; font-weight: bold; color: var(--blue);">
@@ -505,11 +512,11 @@ $showTeamViews = ! $personalOnly;
                                             </svg>
                                         </a>
                                         <form method="post" action="<?= $basePath ?>/tareas/estado" style="display:inline; margin:0;"
-                                            onsubmit="<?= !$taskTieneHoras ? "alert('Debes registrar horas antes de cerrar la tarea.'); return false;" : "return confirm('¿Marcar tarea como terminada?');" ?>">
+                                            onsubmit="return handleTaskFinish(this, <?= $taskTieneHoras ? 'true' : 'false' ?>);">
                                             <input type="hidden" name="task_id" value="<?= (int)$task['id'] ?>">
                                             <input type="hidden" name="estado" value="terminada">
                                             <input type="hidden" name="return_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
-                                            <button type="submit" class="btn btn-success btn-small btn-icon" title="Cerrar tarea" <?= !$taskTieneHoras ? 'disabled' : '' ?>>
+                                            <button type="submit" class="btn btn-success btn-small btn-icon" title="Cerrar tarea">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                                             </button>
                                         </form>
@@ -583,6 +590,21 @@ $showTeamViews = ! $personalOnly;
                 <button type="submit" class="btn">Actualizar</button>
             </div>
         </form>
+    </div>
+</div>
+<div class="modal" id="noHoursModal" data-modal>
+    <div class="modal-overlay" data-close-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="noHoursModalTitle">
+        <div class="modal-header">
+            <h2 id="noHoursModalTitle">No puedes terminar la tarea</h2>
+            <button type="button" class="btn btn-secondary btn-small" data-close-modal>Cerrar</button>
+        </div>
+        <div class="modal-body">
+            <p>Debes registrar horas antes de cerrar la tarea.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-close-modal>Aceptar</button>
+        </div>
     </div>
 </div>
 <script>
@@ -793,7 +815,21 @@ $showTeamViews = ! $personalOnly;
             errorBox.textContent = '';
         }
     });
+
+    const noHoursModal = setupModal('noHoursModal');
 })();
+
+// Función global para validar antes de terminar tarea
+function handleTaskFinish(form, tieneHoras) {
+    if (!tieneHoras) {
+        const modal = document.getElementById('noHoursModal');
+        if (modal) {
+            modal.classList.add('is-open');
+        }
+        return false;
+    }
+    return confirm('¿Marcar tarea como terminada?');
+}
 </script>
 <?php
 $content = ob_get_clean();

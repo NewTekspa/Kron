@@ -247,7 +247,8 @@ class Task
                 COUNT(*) AS total
                 FROM kron_tasks t
                 WHERE t.user_id IN (' . $placeholders . ')
-                AND DATE(t.created_at) BETWEEN ? AND ?
+                AND t.fecha_compromiso IS NOT NULL
+                AND DATE(t.fecha_compromiso) BETWEEN ? AND ?
                 GROUP BY t.user_id';
         $stmt = self::db()->prepare($sql);
         $stmt->execute(array_merge(array_values($userIds), [$startDate, $endDate]));
@@ -273,7 +274,8 @@ class Task
                 FROM kron_tasks t
                 WHERE t.user_id IN (' . $placeholders . ')
                 AND t.estado = "terminada"
-                AND DATE(t.created_at) BETWEEN ? AND ?
+                AND t.fecha_compromiso IS NOT NULL
+                AND DATE(t.fecha_compromiso) BETWEEN ? AND ?
                 GROUP BY t.user_id';
         $stmt = self::db()->prepare($sql);
         $stmt->execute(array_merge(array_values($userIds), [$startDate, $endDate]));
@@ -305,11 +307,12 @@ class Task
 
         $placeholders = implode(',', array_fill(0, count($userIds), '?'));
         $sql = 'SELECT t.user_id,
-                DATE_FORMAT(t.created_at, "%Y-%m-01") AS mes,
+                DATE_FORMAT(t.fecha_compromiso, "%Y-%m-01") AS mes,
                 COUNT(*) AS total
                 FROM kron_tasks t
                 WHERE t.user_id IN (' . $placeholders . ')
-                AND DATE(t.created_at) >= ?
+                AND t.fecha_compromiso IS NOT NULL
+                AND DATE(t.fecha_compromiso) >= ?
                 GROUP BY t.user_id, mes
                 ORDER BY mes ASC';
         $stmt = self::db()->prepare($sql);
@@ -365,7 +368,8 @@ class Task
                 FROM kron_tasks t
                 WHERE t.user_id IN (' . $placeholders . ')
                 AND t.estado = ?
-                AND DATE(t.created_at) BETWEEN ? AND ?
+                AND t.fecha_compromiso IS NOT NULL
+                AND DATE(t.fecha_compromiso) BETWEEN ? AND ?
                 GROUP BY t.user_id';
         $stmt = self::db()->prepare($sql);
         $stmt->execute(array_merge(array_values($userIds), [$estado, $startDate, $endDate]));
