@@ -99,7 +99,15 @@ foreach ($tareas as $t) {
                     <td><?= htmlspecialchars($t['estado']) ?></td>
                     <td><?= htmlspecialchars($t['prioridad']) ?></td>
                     <td><?= htmlspecialchars($t['fecha_compromiso']) ?></td>
-                    <td><?= htmlspecialchars(number_format((float)($t['total_horas'] ?? 0), 1)) ?> h</td>
+                    <td style="display:flex;align-items:center;gap:18px;">
+                        <?= htmlspecialchars(number_format((float)($t['total_horas'] ?? 0), 1)) ?> h
+                        <a href="<?= $basePath ?>/tareas/detalle-informativo?id=<?= (int)$t['id'] ?>" class="btn btn-small btn-icon" title="Ver detalle informativo" aria-label="Ver detalle informativo" style="padding:4px;display:inline-flex;align-items:center;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
