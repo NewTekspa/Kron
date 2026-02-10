@@ -366,7 +366,9 @@ class Task
 
     public static function findWithDetails(int $id): ?array
     {
-        $sql = 'SELECT t.*, t.fecha_termino_real, COALESCE(u.nombre, \'Sin asignar\') AS asignado_nombre, COALESCE(u.email, \'\') AS asignado_email,
+        $sql = 'SELECT t.*, t.fecha_termino_real,
+            (SELECT COALESCE(SUM(tt.horas), 0) FROM kron_task_times tt WHERE tt.task_id = t.id) AS total_horas,
+            COALESCE(u.nombre, \'Sin asignar\') AS asignado_nombre, COALESCE(u.email, \'\') AS asignado_email,
             cat.nombre AS categoria_nombre,
             cls.nombre AS clasificacion_nombre,
             eq.nombre AS equipo_nombre,
