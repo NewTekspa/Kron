@@ -479,7 +479,7 @@ $showTeamViews = ! $personalOnly;
                                 </td>
                                 <td class="table-center">
                                     <div style="display: flex; flex-direction: row; gap: 4px; align-items: center; justify-content: center; flex-wrap: nowrap;">
-                                        <a href="/horas/registrar?tarea_id=<?= (int) $task['id'] ?>&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
+                                        <a href="<?= $basePath ?>/horas/registrar?tarea_id=<?= (int) $task['id'] ?>&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <circle cx="12" cy="12" r="10" />
                                                 <polyline points="12 6 12 12 16 14" />
