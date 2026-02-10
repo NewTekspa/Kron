@@ -50,8 +50,8 @@ ob_start();
                     </button>
                 </form>
             </div>
-            <div class="table-wrap" style="margin-top: 24px;">
-                <table class="table table-compact">
+            <div class="table-wrap" style="margin-top: 24px; overflow-x: auto;">
+                <table class="table table-compact" style="min-width: 1100px;">
                     <thead>
                         <tr>
                             <th style="min-width:180px;">Título</th>
@@ -60,7 +60,7 @@ ob_start();
                             <th style="min-width:140px;">Fecha compromiso</th>
                             <th style="min-width:110px;">Total horas</th>
                             <th style="min-width:110px;">Estado</th>
-                            <th style="min-width:160px;">Acciones</th>
+                            <th style="min-width:240px;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,8 +103,15 @@ ob_start();
                                     <td><?= isset($tarea['fecha_compromiso']) && $tarea['fecha_compromiso'] ? date('d-m-Y', strtotime($tarea['fecha_compromiso'])) : '-' ?></td>
                                     <td><?= $totalHHMM ?> h</td>
                                     <td><?= htmlspecialchars($tarea['estado']) ?></td>
-                                    <td style="text-align:center; min-width: 320px; max-width: 500px;">
-                                        <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; white-space: nowrap;">
+                                    <td style="text-align:center; min-width: 240px;">
+                                        <?php
+                                        // Verificar si la tarea tiene horas registradas
+                                        $tareaTieneHoras = false;
+                                        if (!empty($tarea['id'])) {
+                                            $tareaTieneHoras = \App\Models\Task::hasTimeEntries($tarea['id']);
+                                        }
+                                        ?>
+                                        <div style="display: flex; flex-direction: row; gap: 6px; align-items: center; justify-content: center; flex-wrap: nowrap;">
                                             <a href="<?= $basePath ?>/horas/registrar?tarea_id=<?= (int)$tarea['id'] ?>&return_url=<?= urlencode($basePath . '/tareas/actividad?category_id=' . (int)$actividad['id']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                     <circle cx="12" cy="12" r="10"/>
@@ -120,30 +127,23 @@ ob_start();
                                                     <circle cx="12" cy="12" r="3"/>
                                                 </svg>
                                             </a>
+                                            <form method="post" action="<?= $basePath ?>/tareas/estado" style="display:inline; margin:0;"
+                                                onsubmit="<?= !$tareaTieneHoras ? "alert('Debes registrar horas antes de cerrar la tarea.'); return false;" : "return confirm('¿Marcar tarea como terminada?');" ?>">
+                                                <input type="hidden" name="task_id" value="<?= (int)$tarea['id'] ?>">
+                                                <input type="hidden" name="estado" value="terminada">
+                                                <input type="hidden" name="return_url" value="<?= $basePath ?>/tareas/actividad?category_id=<?= (int)$actividad['id'] ?>">
+                                                <button type="submit" class="btn btn-success btn-small btn-icon" title="Cerrar tarea" <?= !$tareaTieneHoras ? 'disabled' : '' ?>>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                                </button>
+                                            </form>
+                                            <form method="post" action="<?= $basePath ?>/tareas/eliminar" style="display:inline; margin:0;" onsubmit="return confirm('¿Eliminar tarea?');">
+                                                <input type="hidden" name="task_id" value="<?= (int)$tarea['id'] ?>">
+                                                <input type="hidden" name="return_url" value="<?= $basePath ?>/tareas/actividad?category_id=<?= (int)$actividad['id'] ?>">
+                                                <button type="submit" class="btn btn-danger btn-small btn-icon" title="Eliminar tarea">
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                                                </button>
+                                            </form>
                                         </div>
-                                        <?php
-                                        // Verificar si la tarea tiene horas registradas
-                                        $tareaTieneHoras = false;
-                                        if (!empty($tarea['id'])) {
-                                            $tareaTieneHoras = \App\Models\Task::hasTimeEntries($tarea['id']);
-                                        }
-                                        ?>
-                                        <form method="post" action="<?= $basePath ?>/tareas/estado" class="inline" style="display:inline;"
-                                            onsubmit="<?= !$tareaTieneHoras ? "alert('Debes registrar horas antes de cerrar la tarea.'); return false;" : "return confirm('¿Marcar tarea como terminada?');" ?>">
-                                            <input type="hidden" name="task_id" value="<?= (int)$tarea['id'] ?>">
-                                            <input type="hidden" name="estado" value="terminada">
-                                            <input type="hidden" name="return_url" value="<?= $basePath ?>/tareas/actividad?category_id=<?= (int)$actividad['id'] ?>">
-                                            <button type="submit" class="btn btn-success btn-small btn-icon" title="Cerrar tarea" <?= !$tareaTieneHoras ? 'disabled' : '' ?>>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                                            </button>
-                                        </form>
-                                        <form method="post" action="<?= $basePath ?>/tareas/eliminar" class="inline" style="display:inline;" onsubmit="return confirm('¿Eliminar tarea?');">
-                                            <input type="hidden" name="task_id" value="<?= (int)$tarea['id'] ?>">
-                                            <input type="hidden" name="return_url" value="<?= $basePath ?>/tareas/actividad?category_id=<?= (int)$actividad['id'] ?>">
-                                            <button type="submit" class="btn btn-danger btn-small btn-icon" title="Eliminar tarea">
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-                                            </button>
-                                        </form>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
