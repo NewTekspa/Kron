@@ -478,6 +478,10 @@ $showTeamViews = ! $personalOnly;
                                     </span>
                                 </td>
                                 <td class="table-center">
+                                    <?php
+                                    // Verificar si la tarea tiene horas registradas
+                                    $taskTieneHoras = !empty($task['time_count']) && (int)$task['time_count'] > 0;
+                                    ?>
                                     <div style="display: flex; flex-direction: row; gap: 4px; align-items: center; justify-content: center; flex-wrap: nowrap;">
                                         <a href="<?= $basePath ?>/horas/registrar?tarea_id=<?= (int) $task['id'] ?>&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -500,6 +504,15 @@ $showTeamViews = ! $personalOnly;
                                                 <circle cx="12" cy="12" r="3"/>
                                             </svg>
                                         </a>
+                                        <form method="post" action="<?= $basePath ?>/tareas/estado" style="display:inline; margin:0;"
+                                            onsubmit="<?= !$taskTieneHoras ? "alert('Debes registrar horas antes de cerrar la tarea.'); return false;" : "return confirm('¿Marcar tarea como terminada?');" ?>">
+                                            <input type="hidden" name="task_id" value="<?= (int)$task['id'] ?>">
+                                            <input type="hidden" name="estado" value="terminada">
+                                            <input type="hidden" name="return_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
+                                            <button type="submit" class="btn btn-success btn-small btn-icon" title="Cerrar tarea" <?= !$taskTieneHoras ? 'disabled' : '' ?>>
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

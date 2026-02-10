@@ -465,7 +465,7 @@ class TaskController extends Controller
         $this->view('tasks/detalle_informativo', [
             'title' => 'Detalle informativo de tarea',
             'tarea' => $task,
-            'asignado' => ['nombre' => $task['usuario_nombre'] ?? '-'],
+            'asignado' => ['nombre' => $task['asignado_nombre'] ?? '-'],
             'categoria' => ['nombre' => $task['categoria_nombre'] ?? '-'],
             'clasificacion' => ['nombre' => $task['clasificacion_nombre'] ?? '-'],
             'equipo' => ['nombre' => $task['equipo_nombre'] ?? '-'],
@@ -585,6 +585,14 @@ class TaskController extends Controller
             return;
         }
 
+        // Si la tarea ya estaba terminada, mantener su fecha de término
+        // Si cambia a terminada ahora, Task::update() la registrará automáticamente
+        // Si deja de estar terminada, limpiar la fecha
+        $fechaTerminoReal = null;
+        if ($task['estado'] === 'terminada' && $estado === 'terminada') {
+            $fechaTerminoReal = $task['fecha_termino_real'];
+        }
+
         Task::update($id, [
             'category_id' => $categoryId,
             'user_id' => $asignadoId,
@@ -592,7 +600,7 @@ class TaskController extends Controller
             'fecha_compromiso' => $fechaCompromiso,
             'prioridad' => $prioridad,
             'estado' => $estado,
-            'fecha_termino_real' => $task['fecha_termino_real'] ?? null,
+            'fecha_termino_real' => $fechaTerminoReal,
         ]);
 
         if ($returnUrl) {

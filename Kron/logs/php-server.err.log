@@ -408,3 +408,27 @@ Stack trace:
 [09-Feb-2026 23:45:15 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 15
 [09-Feb-2026 23:45:34 UTC] PHP Parse error:  syntax error, unexpected token "public", expecting "{" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 15
 [09-Feb-2026 23:46:10 UTC] PHP Parse error:  syntax error, unexpected token "{", expecting "function" in C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php on line 43
+[10-Feb-2026 01:35:14 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.team_id' in 'on clause' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:383
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(383): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(455): App\Models\Task::findWithDetails()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(60): App\Controllers\TaskController->detalleInformativo()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 383
+[10-Feb-2026 01:38:04 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.team_id' in 'on clause' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:383
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(383): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(455): App\Models\Task::findWithDetails()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(60): App\Controllers\TaskController->detalleInformativo()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 383
+[10-Feb-2026 01:38:06 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.team_id' in 'on clause' in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php:383
+Stack trace:
+#0 C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php(383): PDOStatement->execute()
+#1 C:\01 Proyectos\Zurich\KRON\Kron\app\Controllers\TaskController.php(455): App\Models\Task::findWithDetails()
+#2 C:\01 Proyectos\Zurich\KRON\Kron\app\Core\Router.php(60): App\Controllers\TaskController->detalleInformativo()
+#3 C:\01 Proyectos\Zurich\KRON\Kron\public\index.php(13): App\Core\Router->dispatch()
+#4 {main}
+  thrown in C:\01 Proyectos\Zurich\KRON\Kron\app\Models\Task.php on line 383

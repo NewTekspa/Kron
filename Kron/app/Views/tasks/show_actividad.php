@@ -151,7 +151,7 @@ ob_start();
                             <tr><td colspan="4" class="muted">No hay tareas asociadas a esta actividad.</td></tr>
                         <?php endif; ?>
                     </tbody>
-                <table style="min-width: 1200px; max-width: 100%; width: 100%;">
+                </table>
             </div>
         </section>
     </div>

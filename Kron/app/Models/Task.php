@@ -82,7 +82,7 @@ class Task
             return [];
         }
 
-        $sql = "SELECT t.id, t.titulo, t.estado, t.prioridad,
+        $sql = "SELECT t.id, t.titulo, t.estado, t.prioridad, t.fecha_compromiso,
             COALESCE(u.nombre, 'Sin asignar') AS asignado_nombre,
             cat.nombre AS categoria_nombre,
             cls.nombre AS clasificacion_nombre,
@@ -366,15 +366,19 @@ class Task
 
     public static function findWithDetails(int $id): ?array
     {
-        $sql = 'SELECT t.*, COALESCE(u.nombre, \'Sin asignar\') AS asignado_nombre, COALESCE(u.email, \'\') AS asignado_email,
-                cat.nombre AS categoria_nombre,
-                c.nombre AS creador_nombre
-                FROM kron_tasks t
-                LEFT JOIN kron_users u ON u.id = t.user_id
-                JOIN kron_users c ON c.id = t.created_by
-                LEFT JOIN kron_task_categories cat ON cat.id = t.category_id
-                WHERE t.id = :id
-                LIMIT 1';
+        $sql = 'SELECT t.*, t.fecha_termino_real, COALESCE(u.nombre, \'Sin asignar\') AS asignado_nombre, COALESCE(u.email, \'\') AS asignado_email,
+            cat.nombre AS categoria_nombre,
+            cls.nombre AS clasificacion_nombre,
+            eq.nombre AS equipo_nombre,
+            c.nombre AS creador_nombre
+            FROM kron_tasks t
+            LEFT JOIN kron_users u ON u.id = t.user_id
+            JOIN kron_users c ON c.id = t.created_by
+            LEFT JOIN kron_task_categories cat ON cat.id = t.category_id
+            LEFT JOIN kron_task_classifications cls ON cls.id = cat.classification_id
+            LEFT JOIN kron_teams eq ON eq.id = cat.team_id
+            WHERE t.id = :id
+            LIMIT 1';
         $stmt = self::db()->prepare($sql);
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
@@ -406,13 +410,20 @@ class Task
 
     public static function update(int $id, array $data): void
     {
+        // Si el estado cambia a terminada y no hay fecha_termino_real, registrarla
+        $fechaTerminoReal = $data['fecha_termino_real'] ?? null;
+        if ($data['estado'] === 'terminada' && !$fechaTerminoReal) {
+            $fechaTerminoReal = date('Y-m-d H:i:s');
+        }
+        
         $stmt = self::db()->prepare('UPDATE kron_tasks
             SET category_id = :category_id,
                 user_id = :user_id,
                 titulo = :titulo,
                 fecha_compromiso = :fecha_compromiso,
                 prioridad = :prioridad,
-                estado = :estado
+                estado = :estado,
+                fecha_termino_real = :fecha_termino_real
             WHERE id = :id');
         $stmt->execute([
             'category_id' => $data['category_id'],
@@ -421,17 +432,27 @@ class Task
             'fecha_compromiso' => $data['fecha_compromiso'],
             'prioridad' => $data['prioridad'],
             'estado' => $data['estado'],
+            'fecha_termino_real' => $fechaTerminoReal,
             'id' => $id,
         ]);
     }
 
     public static function updateStatus(int $id, string $estado, ?string $fechaTermino = null): void
     {
-        $stmt = self::db()->prepare('UPDATE kron_tasks SET estado = :estado WHERE id = :id');
-        $stmt->execute([
-            'estado' => $estado,
-            'id' => $id,
-        ]);
+        if ($estado === 'terminada' && $fechaTermino) {
+            $stmt = self::db()->prepare('UPDATE kron_tasks SET estado = :estado, fecha_termino_real = :fecha_termino_real WHERE id = :id');
+            $stmt->execute([
+                'estado' => $estado,
+                'fecha_termino_real' => $fechaTermino . ' ' . date('H:i:s'),
+                'id' => $id,
+            ]);
+        } else {
+            $stmt = self::db()->prepare('UPDATE kron_tasks SET estado = :estado WHERE id = :id');
+            $stmt->execute([
+                'estado' => $estado,
+                'id' => $id,
+            ]);
+        }
     }
 
     public static function addLog(int $taskId, int $userId, string $contenido): void
