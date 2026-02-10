@@ -115,10 +115,18 @@ class TaskGestionController extends Controller
             // Obtener equipos del usuario para filtrado
             $userTeamIds = [];
             foreach ($teams as $t) {
-                $members = $teamMembers[(int)$t['id']] ?? [];
-                foreach ($members as $m) {
-                    if ((int)$m['id'] === $itemUserId) {
-                        $userTeamIds[] = (int)$t['id'];
+                $teamId = (int)$t['id'];
+                // Incluir si es jefe o subgerente del equipo
+                if ((int)$t['jefe_id'] === $itemUserId || (int)$t['subgerente_id'] === $itemUserId) {
+                    $userTeamIds[] = $teamId;
+                } else {
+                    // Incluir si es miembro del equipo
+                    $members = $teamMembers[$teamId] ?? [];
+                    foreach ($members as $m) {
+                        if ((int)$m['id'] === $itemUserId) {
+                            $userTeamIds[] = $teamId;
+                            break;
+                        }
                     }
                 }
             }
