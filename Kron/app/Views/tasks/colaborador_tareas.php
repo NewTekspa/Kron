@@ -89,11 +89,20 @@ foreach ($tareas as $t) {
         $tareasFiltradas = $estadoFiltro === 'todos'
             ? $tareas
             : array_filter($tareas, fn($t) => ($t['estado'] ?? '') === $estadoFiltro);
+
+        // Agrupar tareas por actividad
+        $tareasPorActividad = [];
+        foreach ($tareasFiltradas as $t) {
+            $actividad = $t['categoria_nombre'] ?? 'Sin actividad';
+            $tareasPorActividad[$actividad][] = $t;
+        }
+        if (empty($tareasPorActividad)) {
+            echo '<tr><td colspan="5" class="muted">No hay tareas asignadas para este estado.</td></tr>';
+        } else {
+            foreach ($tareasPorActividad as $actividad => $tareasAct) {
+                echo '<tr><td colspan="5" style="background:#f8fafc;font-weight:bold;padding-top:18px;padding-bottom:6px;border-top:2px solid #e5e7eb;">Actividad: ' . htmlspecialchars($actividad) . '</td></tr>';
+                foreach ($tareasAct as $t) {
         ?>
-        <?php if (empty($tareasFiltradas)): ?>
-            <tr><td colspan="5" class="muted">No hay tareas asignadas para este estado.</td></tr>
-        <?php else: ?>
-            <?php foreach ($tareasFiltradas as $t): ?>
                 <tr>
                     <td><?= htmlspecialchars($t['titulo']) ?></td>
                     <td><?= htmlspecialchars($t['estado']) ?></td>
@@ -109,8 +118,11 @@ foreach ($tareas as $t) {
                         </a>
                     </td>
                 </tr>
-            <?php endforeach; ?>
-        <?php endif; ?>
+        <?php
+                }
+            }
+        }
+        ?>
         </tbody>
     </table>
 </div>

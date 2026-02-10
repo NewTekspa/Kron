@@ -21,14 +21,26 @@ $roleName = \App\Core\Auth::roleName() ?? '';
 $isAdmin = \App\Core\Auth::isAdmin();
 $equipos = \App\Models\Team::visibleTeamsForRole($user['id'], $roleName, $isAdmin);
 $selectedTeamId = isset($_GET['team_id']) && $_GET['team_id'] !== '' ? (int)$_GET['team_id'] : null;
-$selectedPeriodo = isset($_GET['periodo']) ? $_GET['periodo'] : 'mes_actual';
+$selectedPeriod = isset($_GET['periodo']) ? $_GET['periodo'] : 'todos';
 ?>
 <form method="get" style="margin-bottom: 1.5em; display: flex; gap: 1.5em; align-items: flex-end;">
     <div>
-        <label for="periodo" style="font-weight:bold;">Período:</label>
-        <select name="periodo" id="periodo" style="padding:0.5em; border:1px solid #ddd; border-radius:4px;">
-            <option value="mes_actual"<?= $selectedPeriodo === 'mes_actual' ? ' selected' : '' ?>>Mes actual</option>
-            <option value="acumulativo"<?= $selectedPeriodo === 'acumulativo' ? ' selected' : '' ?>>Últimos 6 meses (acumulativo)</option>
+        <label for="periodo" style="font-weight:bold;">Mes:</label>
+        <select name="periodo" id="periodo" style="padding:0.5em; border:1px solid #ddd; border-radius:4px; min-width: 180px;">
+            <option value="todos"<?= $selectedPeriod === 'todos' ? ' selected' : '' ?>>Todos (Acumulado)</option>
+            <?php if (!empty($availableMonths)): ?>
+                <?php foreach ($availableMonths as $mes): ?>
+                    <?php 
+                        $mesLabel = (new \DateTimeImmutable($mes . '-01'))->format('F Y');
+                        $mesLabelEs = str_replace(
+                            ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                            ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                            $mesLabel
+                        );
+                    ?>
+                    <option value="<?= htmlspecialchars($mes) ?>"<?= $selectedPeriod === $mes ? ' selected' : '' ?>><?= htmlspecialchars($mesLabelEs) ?></option>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </select>
     </div>
     <div>

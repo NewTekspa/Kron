@@ -27,16 +27,40 @@ class TaskGestionController extends Controller
         }
 
         $userId = (int) ($user['id'] ?? 0);
-        // Permitir seleccionar el mes por GET (formato YYYY-MM)
-        $selectedMonth = isset($_GET['mes']) ? $_GET['mes'] : (new \DateTimeImmutable())->format('Y-m');
-        try {
-            $monthStart = (new \DateTimeImmutable($selectedMonth . '-01'))->format('Y-m-d');
-            // Fin de mes seleccionado
-            $monthEnd = (new \DateTimeImmutable($monthStart))->modify('last day of this month')->format('Y-m-d');
-        } catch (\Exception $e) {
-            // Si el formato es inválido, usar mes actual
-            $monthStart = (new \DateTimeImmutable('first day of this month'))->format('Y-m-d');
-            $monthEnd = (new \DateTimeImmutable('today'))->format('Y-m-d');
+        
+        // Obtener todos los meses disponibles con tareas
+        $availableMonths = Task::getAvailableMonths();
+        
+        // Filtro de mes: puede ser "todos" o un mes específico (formato YYYY-MM)
+        $selectedPeriod = isset($_GET['periodo']) && $_GET['periodo'] !== '' ? $_GET['periodo'] : 'todos';
+        
+        // Determinar rango de fechas según el filtro
+        if ($selectedPeriod === 'todos') {
+            // Acumulado: desde el mes más antiguo hasta el más reciente
+            if (!empty($availableMonths)) {
+                $oldestMonth = end($availableMonths); // último elemento (más antiguo)
+                $newestMonth = reset($availableMonths); // primer elemento (más reciente)
+                $monthStart = (new \DateTimeImmutable($oldestMonth . '-01'))->format('Y-m-d');
+                $monthEnd = (new \DateTimeImmutable($newestMonth . '-01'))->modify('last day of this month')->format('Y-m-d');
+                $selectedMonth = null;
+            } else {
+                // Si no hay meses disponibles, usar mes actual
+                $monthStart = (new \DateTimeImmutable('first day of this month'))->format('Y-m-d');
+                $monthEnd = (new \DateTimeImmutable('last day of this month'))->format('Y-m-d');
+                $selectedMonth = (new \DateTimeImmutable())->format('Y-m');
+            }
+        } else {
+            // Mes específico
+            $selectedMonth = $selectedPeriod;
+            try {
+                $monthStart = (new \DateTimeImmutable($selectedMonth . '-01'))->format('Y-m-d');
+                $monthEnd = (new \DateTimeImmutable($monthStart))->modify('last day of this month')->format('Y-m-d');
+            } catch (\Exception $e) {
+                // Si el formato es inválido, usar mes actual
+                $monthStart = (new \DateTimeImmutable('first day of this month'))->format('Y-m-d');
+                $monthEnd = (new \DateTimeImmutable('last day of this month'))->format('Y-m-d');
+                $selectedMonth = (new \DateTimeImmutable())->format('Y-m');
+            }
         }
 
 
@@ -186,16 +210,28 @@ class TaskGestionController extends Controller
             ];
         }
 
-        // Calcular los últimos 6 meses móviles (YYYY-MM)
-        $months = [];
-        $now = new \DateTimeImmutable($monthStart);
-        for ($i = 5; $i >= 0; $i--) {
-            $months[] = $now->modify("-{$i} months")->format('Y-m');
+        // Calcular los meses para gráficos según el periodo seleccionado
+        if ($selectedPeriod === 'todos') {
+            // Mostrar todos los meses disponibles (máximo últimos 12)
+            $months = array_slice($availableMonths, 0, 12);
+        } else {
+            // Mostrar últimos 6 meses incluyendo el seleccionado
+            $months = [];
+            $baseDate = new \DateTimeImmutable($selectedMonth . '-01');
+            for ($i = 5; $i >= 0; $i--) {
+                $months[] = $baseDate->modify("-{$i} months")->format('Y-m');
+            }
         }
 
-        // Rango de fechas para la consulta (inicio del primer mes, fin del último mes)
-        $firstMonthStart = (new \DateTimeImmutable($months[0] . '-01'))->format('Y-m-d');
-        $lastMonthEnd = (new \DateTimeImmutable($months[5] . '-01'))->modify('last day of this month')->format('Y-m-d');
+        // Rango de fechas para la consulta de gráficos
+        if (!empty($months)) {
+            $firstMonthStart = (new \DateTimeImmutable($months[0] . '-01'))->format('Y-m-d');
+            $lastMonthIndex = count($months) - 1;
+            $lastMonthEnd = (new \DateTimeImmutable($months[$lastMonthIndex] . '-01'))->modify('last day of this month')->format('Y-m-d');
+        } else {
+            $firstMonthStart = $monthStart;
+            $lastMonthEnd = $monthEnd;
+        }
 
         // Obtener IDs de colaboradores (sin subgerentes) para los gráficos
         $collaboratorIds = array_map(static fn ($col) => (int) $col['id'], $collaboratorStats);
@@ -267,8 +303,10 @@ class TaskGestionController extends Controller
             'teamStats' => $teamStats,
             'collaboratorStats' => $collaboratorStats,
             'totalCritical' => $totalCritical,
-            'monthLabel' => (new \DateTimeImmutable($monthStart))->format('m/Y'),
+            'monthLabel' => $selectedPeriod === 'todos' ? 'Acumulado' : (new \DateTimeImmutable($monthStart))->format('m/Y'),
             'selectedMonth' => $selectedMonth,
+            'selectedPeriod' => $selectedPeriod,
+            'availableMonths' => $availableMonths,
             'months' => $months,
             'tasksByUserByMonth' => $tasksByUserByMonth,
             'hoursByUserByMonth' => $hoursByUserByMonth,

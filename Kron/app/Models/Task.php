@@ -136,6 +136,21 @@ class Task
         return $result;
     }
 
+    /**
+     * Obtiene todos los meses (YYYY-MM) que tienen tareas con fecha_compromiso
+     */
+    public static function getAvailableMonths(): array
+    {
+        $sql = 'SELECT DISTINCT DATE_FORMAT(fecha_compromiso, "%Y-%m") AS mes
+                FROM kron_tasks
+                WHERE fecha_compromiso IS NOT NULL
+                ORDER BY mes DESC';
+        $stmt = self::db()->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return array_column($rows, 'mes');
+    }
+
     public static function hoursByUserIdsByDate(array $userIds, string $sinceDate): array
     {
         if (empty($userIds)) {
