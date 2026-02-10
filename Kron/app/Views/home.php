@@ -113,36 +113,27 @@ $showTeamViews = ! $personalOnly;
                             <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
                         </svg>
                     </div>
-                    <div>
+                    <div style="flex: 1;">
                         <h2 style="margin: 0 0 4px;">Cumplimiento</h2>
                         <?php
                         // Calcular el porcentaje de cumplimiento acumulado (tareas terminadas / total)
                         $cumplimiento = 0;
                         $totalTareas = 0;
                         $totalTerminadas = 0;
-                        
-                        if (!empty($teamStats)) {
-                            foreach ($teamStats as $stat) {
-                                $totalTareas += (int)($stat['total'] ?? 0);
-                                $totalTerminadas += (int)($stat['terminadas'] ?? 0);
-                            }
-                        } elseif (!empty($userStats)) {
+                        if (!empty($userStats)) {
                             foreach ($userStats as $stat) {
                                 $totalTareas += (int)($stat['total'] ?? 0);
                                 $totalTerminadas += (int)($stat['terminadas'] ?? 0);
                             }
                         }
-                        
                         if ($totalTareas > 0) {
                             $cumplimiento = round(($totalTerminadas / $totalTareas) * 100);
                         }
                         ?>
-                        <p class="muted" style="margin: 0; font-size: 32px; font-weight: bold; color: var(--blue);">
-                            <?= $cumplimiento ?>%
-                        </p>
-                        <p class="muted" style="margin: 0; font-size: 13px;">Porcentaje de tareas terminadas</p>
+                        <p class="muted" style="margin: 0; font-size: 13px;">⏱️ <?= $totalTerminadas ?> de <?= $totalTareas ?> tareas completadas</p>
                     </div>
                 </div>
+                <div class="muted" style="font-size: 12px; background: #f1f5f9; padding: 6px 12px; border-radius: 6px;">Resumen acumulado</div>
             </div>
             <?php if ($showTeamViews): ?>
                 <div class="chart-view" data-view="team">
@@ -190,15 +181,16 @@ $showTeamViews = ! $personalOnly;
                     <?php foreach ($userStats as $stat): ?>
                         <?php
                         $total = (int) ($stat['total'] ?? 0);
-                        $totalPct = $maxUserTotal > 0 ? (int) round(($total / $maxUserTotal) * 100) : 0;
+                        $terminadas = (int) ($stat['terminadas'] ?? 0);
+                        $cumplimientoPct = $total > 0 ? (int) round(($terminadas / $total) * 100) : 0;
                         ?>
                         <div class="chart-row">
                             <div class="chart-label"><?= htmlspecialchars($stat['label']) ?></div>
                             <div class="chart-bar-wrap">
                                 <div class="chart-bar">
-                                    <div class="chart-bar-total" style="width: <?= $totalPct ?>%;"></div>
+                                    <div class="chart-bar-total" style="width: <?= $cumplimientoPct ?>%; background: #3b82f6;"></div>
                                 </div>
-                                <div class="chart-value"><?= htmlspecialchars($total) ?></div>
+                                <div class="chart-value"><?= $cumplimientoPct ?>%</div>
                             </div>
                         </div>
                     <?php endforeach; ?>
