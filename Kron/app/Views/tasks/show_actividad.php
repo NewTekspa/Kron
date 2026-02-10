@@ -103,8 +103,8 @@ ob_start();
                                     <td><?= isset($tarea['fecha_compromiso']) && $tarea['fecha_compromiso'] ? date('d-m-Y', strtotime($tarea['fecha_compromiso'])) : '-' ?></td>
                                     <td><?= $totalHHMM ?> h</td>
                                     <td><?= htmlspecialchars($tarea['estado']) ?></td>
-                                    <td style="text-align:center; min-width: 260px; max-width: 400px;">
-                                        <div style="display: flex; flex-direction: row; gap: 6px; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%;">
+                                    <td style="text-align:center; min-width: 320px; max-width: 500px;">
+                                        <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; white-space: nowrap;">
                                             <a href="<?= $basePath ?>/horas/registrar?tarea_id=<?= (int)$tarea['id'] ?>&return_url=<?= urlencode($basePath . '/tareas/actividad?category_id=' . (int)$actividad['id']) ?>" class="btn btn-small btn-icon" title="Registrar horas" aria-label="Registrar horas">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                     <circle cx="12" cy="12" r="10"/>
