@@ -89,6 +89,7 @@ $completionRateFicha = $totalRateCount > 0 ? round($totalRateSum / $totalRateCou
 
 // Preparar datos para el gráfico de horas por colaborador (últimos 6 meses)
 $chartLabels = $months ?? [];
+$chartLabels = array_reverse($chartLabels); // Invertir para mostrar de menor a mayor
 $chartData = [];
 $chartNames = [];
 if (!empty($filteredCollaborators) && !empty($hoursByUserByMonth)) {
@@ -96,7 +97,7 @@ if (!empty($filteredCollaborators) && !empty($hoursByUserByMonth)) {
         $colId = (int)$col['id'];
         $chartNames[] = $col['nombre'];
         $data = [];
-        foreach ($chartLabels as $month) {
+        foreach ($chartLabels as $month) { // Usar chartLabels ya invertido
             $data[] = isset($hoursByUserByMonth[$colId][$month]) ? (float)$hoursByUserByMonth[$colId][$month] : 0.0;
         }
         $chartData[] = $data;

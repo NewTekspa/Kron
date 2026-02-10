@@ -215,10 +215,10 @@ class TaskGestionController extends Controller
             // Mostrar todos los meses disponibles (máximo últimos 12)
             $months = array_slice($availableMonths, 0, 12);
         } else {
-            // Mostrar últimos 6 meses incluyendo el seleccionado
+            // Mostrar últimos 6 meses incluyendo el seleccionado (en orden descendente)
             $months = [];
             $baseDate = new \DateTimeImmutable($selectedMonth . '-01');
-            for ($i = 5; $i >= 0; $i--) {
+            for ($i = 0; $i <= 5; $i++) {
                 $months[] = $baseDate->modify("-{$i} months")->format('Y-m');
             }
         }
