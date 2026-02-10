@@ -210,13 +210,13 @@ class TaskGestionController extends Controller
             ];
         }
 
-        // Calcular los meses para gráficos según el periodo seleccionado
+        // Calcular los meses para gráficos: siempre 6 meses móviles
+        $months = [];
         if ($selectedPeriod === 'todos') {
-            // Mostrar todos los meses disponibles (máximo últimos 12)
-            $months = array_slice($availableMonths, 0, 12);
+            // Mostrar últimos 6 meses disponibles
+            $months = array_slice($availableMonths, 0, 6);
         } else {
-            // Mostrar últimos 6 meses incluyendo el seleccionado (en orden descendente)
-            $months = [];
+            // Mostrar 6 meses desde el seleccionado hacia atrás (en orden descendente)
             $baseDate = new \DateTimeImmutable($selectedMonth . '-01');
             for ($i = 0; $i <= 5; $i++) {
                 $months[] = $baseDate->modify("-{$i} months")->format('Y-m');

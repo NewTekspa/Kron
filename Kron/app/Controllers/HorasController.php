@@ -21,7 +21,8 @@ class HorasController extends Controller
             $success = '';
         }
         // Redirigir de vuelta a la página de registro con return_url
-        $redirectUrl = getenv('BASE_PATH') . '/horas/registrar?tarea_id=' . $taskId;
+        $basePath = $GLOBALS['config']['base_path'] ?? '';
+        $redirectUrl = $basePath . '/horas/registrar?tarea_id=' . $taskId;
         if ($returnUrl) {
             $redirectUrl .= '&return_url=' . urlencode($returnUrl);
         }
@@ -67,6 +68,7 @@ class HorasController extends Controller
                 } else {
                     User::addHourEntry($userId, $fecha, $horas, $taskId);
                     // Redirigir con los parámetros para mantener el estado
+                    $basePath = $GLOBALS['config']['base_path'] ?? '';
                     $redirectUrl = $basePath . '/horas/registrar?tarea_id=' . $taskId;
                     if ($returnUrl) {
                         $redirectUrl .= '&return_url=' . urlencode($returnUrl);
@@ -83,7 +85,7 @@ class HorasController extends Controller
             $success = 'Registro guardado correctamente.';
         }
         $horas = User::getHourEntries($userId, $taskId);
-        $basePath = getenv('BASE_PATH') ?: '';
+        $basePath = $GLOBALS['config']['base_path'] ?? '';
         $title = 'Registrar horas trabajadas';
         $authUser = $user;
         // Pasar returnUrl a la vista
