@@ -101,6 +101,59 @@ class TaskCategory
         return $stmt->fetchAll();
     }
 
+    /**
+     * Obtiene todas las actividades donde participan múltiples usuarios (para jefes/subgerentes)
+     * @param array $userIds Array de IDs de usuarios
+     * @return array Array de actividades
+     */
+    public static function allForUserIds(array $userIds): array
+    {
+        if (empty($userIds)) {
+            return [];
+        }
+
+        // Obtener todos los equipos de los usuarios
+        $placeholdersUsers = implode(',', array_fill(0, count($userIds), '?'));
+        $stmt = self::db()->prepare('SELECT DISTINCT team_id FROM kron_team_members WHERE user_id IN (' . $placeholdersUsers . ')');
+        $stmt->execute(array_values($userIds));
+        $teamIds = [];
+        foreach ($stmt->fetchAll() as $row) {
+            $teamIds[] = (int)$row['team_id'];
+        }
+        $teamIds = array_unique($teamIds);
+
+        // Construir condición WHERE
+        $whereParts = [];
+        $params = [];
+
+        if (!empty($teamIds)) {
+            $placeholdersTeams = implode(',', array_fill(0, count($teamIds), '?'));
+            $whereParts[] = 'c.team_id IN (' . $placeholdersTeams . ')';
+            $params = array_merge($params, $teamIds);
+        }
+
+        $placeholdersUsersCreated = implode(',', array_fill(0, count($userIds), '?'));
+        $whereParts[] = 'c.created_by IN (' . $placeholdersUsersCreated . ')';
+        $params = array_merge($params, array_values($userIds));
+
+        $whereParts[] = 'c.team_id IS NULL';
+
+        $whereClause = '(' . implode(' OR ', $whereParts) . ')';
+
+        $sql = 'SELECT c.id, c.nombre, c.classification_id, c.team_id, cl.nombre AS clasificacion_nombre,
+                   (SELECT COUNT(*) FROM kron_tasks t WHERE t.category_id = c.id) AS total_tareas,
+                   (SELECT COUNT(*) FROM kron_tasks t WHERE t.category_id = c.id AND t.estado != "terminada") AS tareas_abiertas,
+                   (SELECT COUNT(*) FROM kron_tasks t WHERE t.category_id = c.id AND t.estado = "terminada") AS tareas_terminadas,
+                   CASE WHEN (SELECT COUNT(*) FROM kron_tasks t WHERE t.category_id = c.id AND t.estado != "terminada") > 0 THEN "Abierta" ELSE "Cerrada" END AS estado_actividad
+            FROM kron_task_categories c
+            LEFT JOIN kron_task_classifications cl ON cl.id = c.classification_id
+            WHERE ' . $whereClause . '
+            ORDER BY c.nombre';
+        $stmt = self::db()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
     private static function db()
     {
         $config = require __DIR__ . '/../../config/database.php';

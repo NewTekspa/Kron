@@ -1088,14 +1088,30 @@ class TaskController extends Controller
         $this->requireLogin();
         $user = Auth::user();
         $userId = (int)($user['id'] ?? 0);
-        // Obtener actividades donde el usuario participa
-        $activities = TaskCategory::allForUser($userId);
+        
+        // Obtener rol y admin
+        $roleName = \App\Core\Auth::roleName() ?? '';
+        $isAdmin = \App\Core\Auth::isAdmin();
+        
+        // Obtener el filtro de alcance: 'propios' (por defecto) o 'todos'
+        $filtroAlcance = $_GET['filtro_alcance'] ?? 'propios';
+        
+        // Determinar qué actividades mostrar según el rol y el filtro
+        $activities = [];
+        
+        if ($filtroAlcance === 'todos' && ($roleName === 'jefe' || $roleName === 'subgerente' || $isAdmin)) {
+            // Mostrar actividades de todos los usuarios visibles (equipo + propio)
+            $visibleUserIds = Team::visibleUserIdsForRole($userId, $roleName);
+            $activities = TaskCategory::allForUserIds($visibleUserIds);
+        } else {
+            // Mostrar solo actividades propias
+            $activities = TaskCategory::allForUser($userId);
+        }
+        
         // Obtener todas las categorías existentes para el dropdown
         $categorias = TaskCategory::allWithCounts();
         $clasificaciones = \App\Models\TaskClassification::all();
-        // Obtener rol y admin para equipos
-        $roleName = \App\Core\Auth::roleName() ?? '';
-        $isAdmin = \App\Core\Auth::isAdmin();
+        
         $equipos = \App\Models\Team::visibleTeamsForRole($userId, $roleName, $isAdmin);
         // Equipo por defecto: primero de la lista o ninguno
         $equipoPorDefecto = !empty($equipos) ? $equipos[0]['id'] : null;
@@ -1106,6 +1122,9 @@ class TaskController extends Controller
             'clasificaciones' => $clasificaciones,
             'equipos' => $equipos,
             'equipoPorDefecto' => $equipoPorDefecto,
+            'filtroAlcance' => $filtroAlcance,
+            'roleName' => $roleName,
+            'isAdmin' => $isAdmin,
         ]);
     }
 }

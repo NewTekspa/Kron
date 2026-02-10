@@ -91,20 +91,38 @@ ob_start();
 </div>
 
 <?php
-// Indicadores de tareas - calcular totales basados en todas las tareas del usuario
+// Indicadores de tareas - calcular totales basados en todas las tareas del usuario o equipo
 $totalTareas = $totalPendientes = $totalTerminadas = $totalEnCurso = $totalCriticas = $totalAtrasadas = 0;
 $totalHoras = 0;
-// Obtener total de horas registradas por el usuario
-if (class_exists('App\\Models\\Task')) {
-    $horasPorUsuario = \App\Models\Task::hoursTotalsByUserIds([$authUserId]);
-    $totalHoras = isset($horasPorUsuario[$authUserId]) ? $horasPorUsuario[$authUserId] : 0;
+
+// Determinar qué usuarios incluir en los cálculos según el filtro de alcance
+$filtroAlcanceActivo = $_GET['filtro_alcance'] ?? 'propios';
+$userIdsParaCalculo = [$authUserId];
+
+if ($filtroAlcanceActivo === 'todos' && (isset($roleName) && ($roleName === 'jefe' || $roleName === 'subgerente')) || (isset($isAdmin) && $isAdmin)) {
+    // Obtener todos los IDs de usuarios visibles
+    $userIdsParaCalculo = \App\Models\Team::visibleUserIdsForRole($authUserId, $roleName);
 }
-$roleName = \App\Core\Auth::roleName() ?? '';
-// Obtener todas las tareas del usuario en todas las actividades
+
+// Obtener total de horas registradas por los usuarios
+if (class_exists('App\\Models\\Task')) {
+    $horasPorUsuario = \App\Models\Task::hoursTotalsByUserIds($userIdsParaCalculo);
+    foreach ($horasPorUsuario as $uid => $horas) {
+        $totalHoras += $horas;
+    }
+}
+
+// Obtener todas las tareas de los usuarios en todas las actividades
 if (!empty($activities)) {
     foreach ($activities as $actividad) {
         if (isset($actividad['id'])) {
-            $tareas = \App\Models\Task::allForUserByCategory($authUserId, $roleName, $actividad['id']);
+            // Obtener tareas para todos los usuarios visibles
+            if ($filtroAlcanceActivo === 'todos' && count($userIdsParaCalculo) > 1) {
+                $tareas = \App\Models\Task::allForUserIdsByCategory($userIdsParaCalculo, $actividad['id']);
+            } else {
+                $tareas = \App\Models\Task::allForUserByCategory($authUserId, $roleName, $actividad['id']);
+            }
+            
             foreach ($tareas as $t) {
                 $totalTareas++;
                 switch ($t['estado']) {
@@ -115,9 +133,6 @@ if (!empty($activities)) {
                 }
                 if (isset($t['prioridad']) && $t['prioridad'] === 'critica') {
                     $totalCriticas++;
-                }
-                if (isset($t['total_horas'])) {
-                    $totalHoras += floatval($t['total_horas']);
                 }
             }
         }
@@ -140,15 +155,12 @@ if (!empty($activities)) {
 $horasMes = 0;
 $mesActual = date('Y-m-01');
 if (class_exists('App\\Models\\Task')) {
-    $horasMesArr = \App\Models\Task::hoursByUserIdsByMonth([$authUserId], $mesActual);
-    if (isset($horasMesArr[$authUserId])) {
-        // Buscar el mes actual
+    $horasMesArr = \App\Models\Task::hoursByUserIdsByMonth($userIdsParaCalculo, $mesActual);
+    foreach ($horasMesArr as $uid => $mesesData) {
         $mesKey = date('Y-m-01');
-        $horasMes = 0;
-        foreach ($horasMesArr[$authUserId] as $mes => $horas) {
+        foreach ($mesesData as $mes => $horas) {
             if ($mes === $mesKey) {
-                $horasMes = $horas;
-                break;
+                $horasMes += $horas;
             }
         }
     }
@@ -270,6 +282,19 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
             
             <!-- Filtros de estado y búsqueda por título -->
             <form method="get" style="margin: 20px 0; display: flex; gap: 1em; align-items: flex-end; justify-content: center;">
+                <?php
+                $mostrarFiltroAlcance = (isset($roleName) && ($roleName === 'jefe' || $roleName === 'subgerente')) || (isset($isAdmin) && $isAdmin);
+                $filtroAlcanceActual = $_GET['filtro_alcance'] ?? 'propios';
+                ?>
+                <?php if ($mostrarFiltroAlcance): ?>
+                <div>
+                    <label for="filtro_alcance" style="font-weight:bold; font-size:13px;">Ver:</label>
+                    <select name="filtro_alcance" id="filtro_alcance" style="padding:0.4em; border:1px solid #ddd; border-radius:4px; min-width: 120px;">
+                        <option value="propios"<?= $filtroAlcanceActual === 'propios' ? ' selected' : '' ?>>Propios</option>
+                        <option value="todos"<?= $filtroAlcanceActual === 'todos' ? ' selected' : '' ?>>Todos</option>
+                    </select>
+                </div>
+                <?php endif; ?>
                 <div>
                     <label for="filtro_estado" style="font-weight:bold; font-size:13px;">Estado:</label>
                     <select name="filtro_estado" id="filtro_estado" style="padding:0.4em; border:1px solid #ddd; border-radius:4px; min-width: 120px;">
