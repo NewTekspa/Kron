@@ -167,7 +167,7 @@ if (!empty($filteredCollaborators) && !empty($hoursByUserByMonth)) {
                     <?php foreach ($filteredCollaborators as $collaborator): ?>
                         <tr>
                             <td><?= htmlspecialchars($collaborator['nombre']) ?></td>
-                            <td><?= htmlspecialchars($collaborator['rol']) ?></td>
+                            <td><?= htmlspecialchars(ucfirst(strtolower($collaborator['rol']))) ?></td>
                             <td class="table-center"><?= htmlspecialchars((string) $collaborator['total']) ?></td>
                             <td class="table-center"><?= htmlspecialchars((string) $collaborator['terminadas']) ?></td>
                             <td class="table-center"><?= htmlspecialchars((string) ($collaborator['pendientes'] ?? 0)) ?></td>

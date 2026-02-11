@@ -50,7 +50,7 @@ ob_start();
                 <tr>
                     <td><?= htmlspecialchars($member['nombre']) ?></td>
                     <td><?= htmlspecialchars($member['email']) ?></td>
-                    <td><?= htmlspecialchars($member['rol_nombre'] ?? 'sin rol') ?></td>
+                    <td><?= htmlspecialchars(ucfirst(strtolower($member['rol_nombre'] ?? 'sin rol'))) ?></td>
                     <td>
                         <form method="post" action="<?= $basePath ?>/admin/equipos/remover-colaborador" class="inline" onsubmit="return confirm('Quitar colaborador del equipo?');">
                             <input type="hidden" name="team_id" value="<?= (int) $team['id'] ?>">
