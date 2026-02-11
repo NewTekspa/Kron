@@ -110,20 +110,32 @@ class TaskController extends Controller
         if (!$actividad) {
             $this->redirect('/tareas/gestor?error=Actividad+no+encontrada');
         }
+        
+        // Filtro de alcance (scope): 'mios' o 'todos'
+        $scope = $_GET['scope'] ?? 'mios';
+        
         // Obtener tareas asociadas a la actividad
         $todasTareas = \App\Models\Task::allForUserByCategory($userId, $roleName, $categoryId);
+        
+        // Determinar qué tareas mostrar según el rol y el filtro
         if ($roleName === 'administrador') {
-            $tareas = $todasTareas; // Administrador ve todas las tareas de la actividad
+            $tareas = $todasTareas; // Administrador siempre ve todas las tareas
+        } elseif (in_array(strtolower($roleName), ['jefe', 'subgerente'], true) && $scope === 'todos') {
+            // Jefe o Subgerente con filtro "Todos" ve todas las tareas
+            $tareas = $todasTareas;
         } else {
             // Filtrar solo las tareas donde el usuario es responsable
             $tareas = array_filter($todasTareas, function($tarea) use ($userId) {
                 return isset($tarea['user_id']) && (int)$tarea['user_id'] === $userId;
             });
         }
+        
         $this->view('tasks/show_actividad', [
             'actividad' => $actividad,
             'tareas' => $tareas,
             'authUserId' => $userId,
+            'roleName' => $roleName,
+            'scope' => $scope,
         ]);
     }
     /**

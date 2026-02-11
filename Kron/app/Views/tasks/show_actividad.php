@@ -34,6 +34,13 @@ ob_start();
             <div style="display:flex;align-items:center;gap:24px;margin-bottom:16px;">
                 <form id="filtro-tareas" method="get" action="" style="display:flex;align-items:center;gap:8px;">
                     <input type="hidden" name="category_id" value="<?= (int)$actividad['id'] ?>">
+                    <?php if (isset($roleName) && in_array(strtolower($roleName), ['jefe', 'subgerente'], true)): ?>
+                    <label for="scope" style="font-weight:500;">Ver:</label>
+                    <select name="scope" id="scope" style="min-width:120px;">
+                        <option value="mios" <?= (isset($scope) && $scope === 'mios') ? 'selected' : '' ?>>Los míos</option>
+                        <option value="todos" <?= (isset($scope) && $scope === 'todos') ? 'selected' : '' ?>>Todos</option>
+                    </select>
+                    <?php endif; ?>
                     <label for="estado" style="font-weight:500;">Estado:</label>
                     <select name="estado" id="estado" style="min-width:120px;">
                         <option value="">Todos</option>
