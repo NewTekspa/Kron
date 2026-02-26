@@ -452,7 +452,10 @@ $showTeamViews = ! $personalOnly;
                         <th>Actividad</th>
                         <th>Clasificacion</th>
                         <th class="table-center">Prioridad</th>
-                        <th class="table-center">Compromiso</th>
+                        <th class="table-center" id="sortByDate" style="cursor:pointer; user-select:none;">
+                            Compromiso
+                            <span id="sortIcon" style="font-size:12px;">⇅</span>
+                        </th>
                         <th class="table-center">Estado</th>
                         <th class="table-center">Acciones</th>
                     </tr>
@@ -465,7 +468,7 @@ $showTeamViews = ! $personalOnly;
                     <?php else: ?>
                         <?php foreach ($openTasks as $task): ?>
                             <?php $statusKey = str_replace('_', '-', $task['estado']); ?>
-                            <tr data-task-row="<?= (int) $task['id'] ?>" data-prioridad="<?= htmlspecialchars(strtolower($task['prioridad'] ?? '')) ?>">
+                            <tr data-task-row="<?= (int) $task['id'] ?>" data-prioridad="<?= htmlspecialchars(strtolower($task['prioridad'] ?? '')) ?>" data-fecha="<?= htmlspecialchars($task['fecha_compromiso'] ?? '') ?>">
                                 <td><?= htmlspecialchars($task['titulo']) ?></td>
                                 <td><?= htmlspecialchars($task['categoria_nombre'] ?? '-') ?></td>
                                 <td><?= htmlspecialchars($task['clasificacion_nombre'] ?? '-') ?></td>
@@ -478,7 +481,6 @@ $showTeamViews = ! $personalOnly;
                                 </td>
                                 <td class="table-center">
                                     <?php
-                                    // Verificar si la tarea tiene horas registradas
                                     $taskTieneHoras = !empty($task['time_count']) && (int)$task['time_count'] > 0;
                                     ?>
                                     <div style="display: flex; flex-direction: row; gap: 4px; align-items: center; justify-content: center; flex-wrap: nowrap;">
@@ -517,6 +519,7 @@ $showTeamViews = ! $personalOnly;
                             </tr>
                         <?php endforeach; ?>
                     <script>
+                    // Filtro por prioridad
                     document.getElementById('priorityFilter').addEventListener('change', function() {
                         const value = this.value;
                         document.querySelectorAll('#openTasksBody tr[data-task-row]').forEach(row => {
@@ -526,6 +529,44 @@ $showTeamViews = ! $personalOnly;
                                 row.style.display = 'none';
                             }
                         });
+                    });
+
+                    // Ordenar por fecha de compromiso
+                    let sortAsc = true;
+                    document.getElementById('sortByDate').addEventListener('click', function() {
+                        const tbody = document.getElementById('openTasksBody');
+                        const rows = Array.from(tbody.querySelectorAll('tr[data-task-row]'));
+                        rows.sort((a, b) => {
+                            const dateA = a.getAttribute('data-fecha') || '';
+                            const dateB = b.getAttribute('data-fecha') || '';
+                            const tsA = dateA ? new Date(dateA.replace(/-/g, '/')).getTime() : 0;
+                            const tsB = dateB ? new Date(dateB.replace(/-/g, '/')).getTime() : 0;
+                            return sortAsc ? tsA - tsB : tsB - tsA;
+                        });
+                        rows.forEach(row => tbody.appendChild(row));
+                        sortAsc = !sortAsc;
+                        document.getElementById('sortIcon').textContent = sortAsc ? '⇅' : '⇵';
+                    });
+                    </script>
+                    <script>
+                    // Guardar y restaurar posición de scroll de la página completa
+                    const PAGE_SCROLL_KEY = 'openTasksPageScroll';
+                    // Restaurar scroll al cargar
+                    if (localStorage.getItem(PAGE_SCROLL_KEY)) {
+                        window.scrollTo(0, parseInt(localStorage.getItem(PAGE_SCROLL_KEY), 10) || 0);
+                        localStorage.removeItem(PAGE_SCROLL_KEY);
+                    }
+                    // Guardar scroll antes de salir
+                    function savePageScroll() {
+                        localStorage.setItem(PAGE_SCROLL_KEY, window.scrollY);
+                    }
+                    // Enlaces, formularios y botones de la tabla (incluyendo iconos SVG)
+                    document.querySelectorAll('#openTasksBody a, #openTasksBody form, #openTasksBody button').forEach(el => {
+                        if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+                            el.addEventListener('click', savePageScroll);
+                        } else if (el.tagName === 'FORM') {
+                            el.addEventListener('submit', savePageScroll);
+                        }
                     });
                     </script>
                     <?php endif; ?>

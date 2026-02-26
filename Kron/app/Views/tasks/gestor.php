@@ -96,6 +96,7 @@ $totalTareas = $totalPendientes = $totalTerminadas = $totalEnCurso = $totalCriti
 $totalHoras = 0;
 
 // Determinar qué usuarios incluir en los cálculos según el filtro de alcance
+$rolSoloPropios = false;
 $filtroAlcanceActivo = $_GET['filtro_alcance'] ?? 'propios';
 $userIdsParaCalculo = [$authUserId];
 
@@ -146,7 +147,16 @@ if (!empty($activities)) {
     foreach ($activities as $actividad) {
         $matchEstado = ($filtroEstado === '' || ($actividad['estado_actividad'] ?? '') === $filtroEstado);
         $matchTitulo = ($filtroTitulo === '' || mb_strpos(mb_strtolower($actividad['nombre']), $filtroTitulo) !== false);
-        if ($matchEstado && $matchTitulo) {
+        // Si el filtro es 'propios', mostrar solo actividades donde el usuario tenga tareas asignadas
+        $mostrarActividad = true;
+        if ($filtroAlcanceActivo === 'propios') {
+            $tareasAsignadas = [];
+            if (isset($actividad['id'])) {
+                $tareasAsignadas = \App\Models\Task::allForUserByCategory($authUserId, $roleName ?? '', $actividad['id']);
+            }
+            $mostrarActividad = !empty($tareasAsignadas);
+        }
+        if ($matchEstado && $matchTitulo && $mostrarActividad) {
             $filteredActivities[] = $actividad;
         }
     }
@@ -283,8 +293,8 @@ $cumplimiento = ($totalTareas > 0) ? round(($totalTerminadas / $totalTareas) * 1
             <!-- Filtros de estado y búsqueda por título -->
             <form method="get" style="margin: 20px 0; display: flex; gap: 1em; align-items: flex-end; justify-content: center;">
                 <?php
-                $mostrarFiltroAlcance = (isset($roleName) && ($roleName === 'jefe' || $roleName === 'subgerente')) || (isset($isAdmin) && $isAdmin);
-                $filtroAlcanceActual = $_GET['filtro_alcance'] ?? 'propios';
+                $mostrarFiltroAlcance = true;
+                $filtroAlcanceActual = $filtroAlcanceActivo;
                 ?>
                 <?php if ($mostrarFiltroAlcance): ?>
                 <div>
